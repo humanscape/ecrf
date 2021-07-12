@@ -15,7 +15,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.contrib import admin
+
+admin.site.site_header = 'Humanscape ecrf admin'
+admin.site.site_title = 'Humanscape ecrf admin'
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('ecrf-admin/', admin.site.urls),
 ]
