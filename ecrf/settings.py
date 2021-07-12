@@ -43,7 +43,9 @@ THIRD_PARTY_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rangefilter',
 ]
+
 LOCAL_APPS = ['nf1']
 INSTALLED_APPS = THIRD_PARTY_APPS + LOCAL_APPS
 
