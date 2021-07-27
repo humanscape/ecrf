@@ -55,7 +55,7 @@ class CrfAdmin(admin.ModelAdmin):
         'FASI',
 
         'plexiform_neurofibromas',
-        '_3cm_above',
+        'plexiform_neurofibromas_3cm_above',
 
         'disfigurement',
         'aorta_bone_disruption_malignancy',
