@@ -1,5 +1,6 @@
 from django.db import models
 
+
 class Crf(models.Model):
     SEX_TYPE = ((1, 'Male'), (2, 'Female'), (3, 'All'))
     R_SEX_TYPE = {
@@ -80,9 +81,6 @@ class Crf(models.Model):
     Age_at_Whole_body_MR_FINDINGS = models.TextField('Age at Whole body MR FINDINGS', null=True, blank=True,
                                                 help_text='전신 MR 촬영 결과 기술 (영상학적 판단)')
 
-    # Age at Whole body MR	숫자	전신 MR 촬영시 나이
-
-
     plexiform_neurofibromas = models.IntegerField('Plexiform neurofibromas', null=True, blank=True, help_text='총상신경섬유종 (유무; 임상학적 진단)')
     plexiform_neurofibromas_3cm_above = models.IntegerField('Plexiform neurofibromas(>=3cm)', null=True, blank=True, help_text='총상신경섬유종 (3cm 이상; 임상학적 진단)')
 
@@ -124,3 +122,12 @@ class Crf(models.Model):
     updated_at = models.DateTimeField(auto_now=True, blank=True)  # 업데이트 시각
     created_at = models.DateTimeField(auto_now_add=True, blank=True)  # 생성 시각
 
+
+class CrfOperations(models.Model):
+    crf = models.ForeignKey('Crf', related_name='crfOperations', on_delete=models.CASCADE)
+    no = models.IntegerField('수술번호', null=True, blank=True, help_text='수술 번호')
+    date = models.DateField('수술 시기', null=True, blank=True, help_text='수술 시기')
+    age = models.IntegerField('수술 나이', null=True, blank=True, help_text='수술 나이')
+    status = models.CharField('수술 부위', max_length=200, null=True, blank=True, help_text='수술 부위')
+    reason = models.TextField('수술 이유', null=True, blank=True, help_text='수술 이유')
+    method = models.CharField('완전절제/부분절제', max_length=200, null=True, blank=True, help_text='완전절제/부분절제')

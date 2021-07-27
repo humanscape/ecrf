@@ -3,8 +3,14 @@ from rangefilter.filter import DateRangeFilter
 from .models import *
 
 
+class CrfOperationsInline(admin.TabularInline):
+    model = CrfOperations
+    extra = 1
+
+
 @admin.register(Crf)
 class CrfAdmin(admin.ModelAdmin):
+    inlines = (CrfOperationsInline, )
 
     list_display = (
         'date_at_evaluation',
@@ -86,3 +92,4 @@ class CrfAdmin(admin.ModelAdmin):
     )
     list_display_links = list_display
     list_filter = list_display
+
