@@ -13,8 +13,39 @@ class Crf(models.Model):
     }
     boolean_choices = ((0, 0), (1, 1), (2, '모름'))
 
+    DNA_HELP_TEXT = """
+Cysteine/serine rich domain with three cystein pairs (CSRD)
+ - ATP binding, cAMP- dependent protein kinase (PKA) recognition site
+ - exon 11-17,
+- p. 543-909
 
-    date_at_evaluation = models.DateTimeField('Date at evaluation', auto_now=True, blank=True, help_text='진단을 받은 날짜')
+Tub
+ - p. 1095-1176
+GTPase- activating protein (GAP) related domain (GRD)
+ - catalytic RasGAP activity
+ - exon20-27a, 
+-  p. 1198-1530
+
+Sec14-line lipid binding domain
+ - p. 1560 – 1698
+
+Pleckstin homology(PH) like domain
+ - p. 1713 – 1816
+
+Syn
+ - p. 2619 – 2719"
+    """.replace("\n", "<br>")
+
+    MUTATION_TYPE_HELP_TEXT = """
+돌연변이 종류
+1:missense
+2:nonsense
+3:frameshift
+4:splicing
+5:large deletion
+    """.replace("\n", "<br>")
+
+    date_at_evaluation = models.DateTimeField('Date at evaluation(진단)', auto_now=True, blank=True, help_text='진단을 받은 날짜')
     patient_number = models.PositiveIntegerField('Patient number', null=True, blank=True, help_text='환자 번호')
     name = models.CharField('Name', max_length=20, unique=True, blank=True, help_text='환자 이름')
     case_no = models.PositiveIntegerField('Case no.', null=True, blank=True, help_text='사건/차트 번호')
@@ -24,15 +55,15 @@ class Crf(models.Model):
     birth_date = models.DateField('Birth year and month', auto_now=True, blank=True, help_text='생년월일')
     date_at_dx = models.DateField('Date at Dx', auto_now=True, blank=True, help_text='진단 받은 날짜')
     age_at_dx = models.PositiveIntegerField('Age at Dx', null=True, blank=True, help_text='진단시 연령')
-    date_at_evaluation = models.DateField('Date at evaluation', auto_now=True, blank=True, help_text='유전자 검사 날짜')
+    date_at_evaluation_dna = models.DateField('Date at evaluation(유전자 검사)', auto_now=True, blank=True, help_text='유전자 검사 날짜')
     age_at_evaluation = models.PositiveIntegerField('Age at evaluation', null=True, blank=True, help_text='유전자 검사시 연령')
 
     NF1_genotype = models.CharField('NF1 genotype', max_length=200, unique=True, blank=True, help_text='연관 유전자 자위')
-    dna = models.CharField('DNA', max_length=200, unique=True, blank=True, help_text='유전자 변이 (DNA)')
+    dna = models.TextField('DNA', unique=True, blank=True, help_text=DNA_HELP_TEXT)
     protein = models.CharField('Protein', max_length=200, unique=True, blank=True, help_text='유전자 변이 (protein)')
     domain = models.CharField('Domain', max_length=20, unique=True, blank=True, help_text='유전자 도메인')
 
-    mutation_type = models.IntegerField('Mutation type', null=True, blank=True, help_text='돌연변이 종류<br/>1:missense<br/>2:nonsense<br/>3:frameshift<br/>4:splicing<br/>5:large deletion')
+    mutation_type = models.IntegerField('Mutation type', null=True, blank=True, help_text=MUTATION_TYPE_HELP_TEXT)
     inframe_deletion_or_insertion = models.IntegerField('Inframe deletion or insertion', choices=boolean_choices, null=True, blank=True, help_text='인델 돌연변이(유무; 유전자 인프레임 삭제 또는 삽입; 유전자 전사와 번역 과정이 중지되지 않음)')
     nf1_haploinsufficiency_type = models.IntegerField('NF1 haploinsufficiency type', choices=boolean_choices, null=True, blank=True, help_text='반수체 부족 유형')
 
@@ -57,7 +88,7 @@ class Crf(models.Model):
     hypertension = models.IntegerField('Hypertension', choices=boolean_choices, null=True, blank=True, help_text='고혈압 (유무; 임상학적 평가)')
 
     cardiac_arrhthmia = models.IntegerField('Cardiac arrhythmia', choices=boolean_choices, null=True, blank=True, help_text='심장 부정맥 (유무; 임상학적 평가)')
-    Age_at_brain_MR_FINDINGS = models.PositiveIntegerField('Age at brain MR FINDINGS', null=True, blank=True, help_text='부정맥 치료에 사용된 의료 시술/기술')
+    Age_at_brain_MR_FINDINGS = models.TextField('Age at brain MR FINDINGS', null=True, blank=True, help_text='부정맥 치료에 사용된 의료 시술/기술')
     cardiac_myopathy = models.IntegerField('Cardiac myopathy', choices=boolean_choices, null=True, blank=True, help_text='심장 근병증 (유무; 영상학적 소견)')
     Cardiac_myopathy_FINDINGS = models.TextField('Cardiac myopathy FINDINGS', null=True, blank=True, help_text='이상 소견')
 
@@ -79,7 +110,7 @@ class Crf(models.Model):
                                            help_text='척추 MR 촬영시 연령')
     Age_at_Spine_MR_FINDINGS = models.TextField('Age at Spine MR FINDINGS', null=True, blank=True, help_text='척추 MR 스캔 결과 기술 (영상학적 판단)')
     Whole_body_MR_DATE = models.DateField('Whole body MR DATE', auto_now=True, blank=True, help_text='전신 MR 촬영 날짜')
-    Age_at_Whole_body_MR = models.TextField('Age at Whole body MR', null=True, blank=True,
+    Age_at_Whole_body_MR = models.PositiveIntegerField('Age at Whole body MR', null=True, blank=True,
                                                 help_text='전신 MR 촬영시 나이')
     Age_at_Whole_body_MR_FINDINGS = models.TextField('Age at Whole body MR FINDINGS', null=True, blank=True,
                                                 help_text='전신 MR 촬영 결과 기술 (영상학적 판단)')
@@ -118,6 +149,8 @@ class Crf(models.Model):
     biopsy_FINDINGS = models.TextField('biopsy FINDINGS', null=True, blank=True, help_text='조직검사 결과')
 
     operation = models.PositiveIntegerField('OPERATION', choices=boolean_choices, null=True, blank=True, help_text='수술 유무 (유무)')
+    number_of_operations = models.PositiveIntegerField('Number of operations', null=True, blank=True,
+                                            help_text='수술 횟수')
 
     last_follow_up_date = models.PositiveIntegerField('last f/u date', null=True, blank=True, help_text='최근 재진/팔로업 날짜')
     last_follow_up_age = models.FloatField('last f/u age', null=True, blank=True, help_text='최근 재진/팔로업시 연령')
