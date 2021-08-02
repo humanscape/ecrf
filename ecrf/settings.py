@@ -46,7 +46,7 @@ THIRD_PARTY_APPS = [
     'rangefilter',
 ]
 
-LOCAL_APPS = ['nf1']
+LOCAL_APPS = ['nf1', 'ird']
 INSTALLED_APPS = THIRD_PARTY_APPS + LOCAL_APPS
 
 MIDDLEWARE = [
