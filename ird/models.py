@@ -6,12 +6,12 @@ class Ird(models.Model):
     SORTATION_TYPE = ((1,1), (2,2))
 
     case_no = models.PositiveIntegerField('차트번호', null=True, blank=True)
-    name = models.CharField('성명', max_length=20, blank=True)
-    birth_year_and_month = models.DateField('생년월일', blank=True)
+    name = models.CharField('성명', max_length=20, null=True, blank=True)
+    birth_year_and_month = models.DateField('생년월일', null=True, blank=True)
     sex = models.PositiveIntegerField('SEX', choices=SEX_TYPE, null=True, blank=True)
-    finding = models.TextField('특이사항', blank=True)
+    finding = models.TextField('특이사항', null=True, blank=True)
     sortation = models.PositiveIntegerField('구분', choices=SORTATION_TYPE, null=True, blank=True)
-    # models.DecimalField('Height at Dx', max_digits=10, decimal_places=2, null=True, blank=True, help_text='진단시 환자의 키 (신체적 평가)')
+    
     ARK_SPH = models.DecimalField('ARK_SPH', max_digits=10, decimal_places=2, null=True, blank=True)
     ARK_CYL = models.DecimalField('ARK_CYL', max_digits=10, decimal_places=2, null=True, blank=True)
     ARK_AXIS = models.DecimalField('ARK_AXIS', max_digits=10, decimal_places=2, null=True, blank=True)
@@ -46,3 +46,5 @@ class Ird(models.Model):
     VEP_P1 = models.DecimalField('VEP_P1', max_digits=10, decimal_places=2, null=True, blank=True)
     VEP_P2 = models.DecimalField('VEP_P2', max_digits=10, decimal_places=2, null=True, blank=True)
 
+    updated_at = models.DateTimeField(auto_now=True, blank=True)  # 업데이트 시각
+    created_at = models.DateTimeField(auto_now_add=True, blank=True)  # 생성 시각

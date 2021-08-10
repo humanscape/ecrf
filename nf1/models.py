@@ -50,23 +50,23 @@ Syn
 5:large deletion
     """.replace("\n", "<br>")
 
-    date_at_evaluation_diagnosis = models.DateField('Date at evaluation(진단)', blank=True, help_text='진단을 받은 날짜')
+    date_at_evaluation_diagnosis = models.DateField('Date at evaluation(진단)', null=True, blank=True, help_text='진단을 받은 날짜')
     patient_number = models.PositiveIntegerField('Patient number', null=True, blank=True, help_text='환자 번호')
-    name = models.CharField('Name', max_length=20, blank=True, help_text='환자 이름')
+    name = models.CharField('Name', max_length=20, null=True, blank=True, help_text='환자 이름')
     case_no = models.PositiveIntegerField('Case no.', null=True, blank=True, help_text='사건/차트 번호')
     family_no = models.PositiveIntegerField('Family no.', null=True, blank=True, help_text='가족 번호')
     family_hx = models.PositiveIntegerField('Family Hx', choices=BOOLEAN_CHOICES, null=True, blank=True, help_text='가족 병력')
     sex = models.PositiveIntegerField('SEX', choices=SEX_TYPE, null=True, blank=True, help_text='성별')
-    birth_date = models.DateField('Birth year and month', blank=True, help_text='생년월일')
-    date_at_dx = models.DateField('Date at Dx', blank=True, help_text='진단 받은 날짜')
+    birth_date = models.DateField('Birth year and month', null=True, blank=True, help_text='생년월일')
+    date_at_dx = models.DateField('Date at Dx', null=True, blank=True, help_text='진단 받은 날짜')
     age_at_dx = models.PositiveIntegerField('Age at Dx', null=True, blank=True, help_text='진단시 연령')
-    date_at_evaluation_dna = models.DateField('Date at evaluation(유전자 검사)', blank=True, help_text='유전자 검사 날짜')
+    date_at_evaluation_dna = models.DateField('Date at evaluation(유전자 검사)', null=True, blank=True, help_text='유전자 검사 날짜')
     age_at_evaluation = models.PositiveIntegerField('Age at evaluation', null=True, blank=True, help_text='유전자 검사시 연령')
 
-    NF1_genotype = models.CharField('NF1 genotype', max_length=200, blank=True, help_text='연관 유전자 자위')
-    dna = models.CharField('DNA', max_length=200, blank=True, help_text='유전자 변이 (DNA)')
-    protein = models.CharField('Protein', max_length=200, blank=True, help_text='유전자 변이 (protein)')
-    domain = models.CharField('Domain', max_length=20, blank=True, help_text=DOMAIN_HELP_TEXT)
+    NF1_genotype = models.CharField('NF1 genotype', max_length=200, null=True, blank=True, help_text='연관 유전자 자위')
+    dna = models.CharField('DNA', max_length=200, null=True, blank=True, help_text='유전자 변이 (DNA)')
+    protein = models.CharField('Protein', max_length=200, null=True, blank=True, help_text='유전자 변이 (protein)')
+    domain = models.CharField('Domain', max_length=20, null=True, blank=True, help_text=DOMAIN_HELP_TEXT)
 
     mutation_type = models.IntegerField('Mutation type', choices=MUTATION_TYPE_CHOICES, null=True, blank=True, help_text=MUTATION_TYPE_HELP_TEXT)
     inframe_deletion_or_insertion = models.IntegerField('Inframe deletion or insertion', choices=BOOLEAN_CHOICES, null=True, blank=True, help_text='인델 돌연변이(유무; 유전자 인프레임 삭제 또는 삽입; 유전자 전사와 번역 과정이 중지되지 않음)')
@@ -110,11 +110,11 @@ Syn
 
     optic_pathway_glioma = models.IntegerField('Optic pathway glioma', choices=BOOLEAN_CHOICES, null=True, blank=True, help_text='시신경교종 (유무; 안과적 진단)')
     Vascular_anomaly = models.IntegerField('Vascular anomaly', choices=BOOLEAN_CHOICES, null=True, blank=True, help_text='혈관 이상 (유무; 영상학적/흉부외과적 진단)')
-    SPINE_MR_DATE = models.DateField('SPINE MR DATE', blank=True, help_text='척추 MR 스캔 촬영 날짜')
+    SPINE_MR_DATE = models.DateField('SPINE MR DATE', null=True, blank=True, help_text='척추 MR 스캔 촬영 날짜')
     Age_at_Spine_MR = models.IntegerField('Age at Spine MR', null=True, blank=True,
                                            help_text='척추 MR 촬영시 연령')
     Age_at_Spine_MR_FINDINGS = models.TextField('Age at Spine MR FINDINGS', null=True, blank=True, help_text='척추 MR 스캔 결과 기술 (영상학적 판단)')
-    Whole_body_MR_DATE = models.DateField('Whole body MR DATE', blank=True, help_text='전신 MR 촬영 날짜')
+    Whole_body_MR_DATE = models.DateField('Whole body MR DATE', null=True, blank=True, help_text='전신 MR 촬영 날짜')
     Age_at_Whole_body_MR = models.PositiveIntegerField('Age at Whole body MR', null=True, blank=True,
                                                 help_text='전신 MR 촬영시 나이')
     Age_at_Whole_body_MR_FINDINGS = models.TextField('Age at Whole body MR FINDINGS', null=True, blank=True,
