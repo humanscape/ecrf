@@ -13,7 +13,7 @@ class CrfAdmin(admin.ModelAdmin):
     inlines = (CrfOperationsInline, )
 
     list_display = (
-        'date_at_evaluation',
+        'date_at_evaluation_diagnosis',
         'patient_number',
         'name',
         'case_no',
@@ -24,7 +24,7 @@ class CrfAdmin(admin.ModelAdmin):
         'date_at_dx',
         'age_at_dx',
 
-        'date_at_evaluation',
+        'date_at_evaluation_dna',
         'age_at_evaluation',
         'dna',
         'protein',
