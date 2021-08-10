@@ -52,7 +52,7 @@ Syn
 
     date_at_evaluation_diagnosis = models.DateField('Date at evaluation(진단)', blank=True, help_text='진단을 받은 날짜')
     patient_number = models.PositiveIntegerField('Patient number', null=True, blank=True, help_text='환자 번호')
-    name = models.CharField('Name', max_length=20, unique=True, blank=True, help_text='환자 이름')
+    name = models.CharField('Name', max_length=20, blank=True, help_text='환자 이름')
     case_no = models.PositiveIntegerField('Case no.', null=True, blank=True, help_text='사건/차트 번호')
     family_no = models.PositiveIntegerField('Family no.', null=True, blank=True, help_text='가족 번호')
     family_hx = models.PositiveIntegerField('Family Hx', choices=BOOLEAN_CHOICES, null=True, blank=True, help_text='가족 병력')
@@ -63,10 +63,10 @@ Syn
     date_at_evaluation_dna = models.DateField('Date at evaluation(유전자 검사)', blank=True, help_text='유전자 검사 날짜')
     age_at_evaluation = models.PositiveIntegerField('Age at evaluation', null=True, blank=True, help_text='유전자 검사시 연령')
 
-    NF1_genotype = models.CharField('NF1 genotype', max_length=200, unique=True, blank=True, help_text='연관 유전자 자위')
-    dna = models.TextField('DNA', unique=True, blank=True, help_text='유전자 변이 (DNA)')
-    protein = models.CharField('Protein', max_length=200, unique=True, blank=True, help_text='유전자 변이 (protein)')
-    domain = models.CharField('Domain', max_length=20, unique=True, blank=True, help_text=DOMAIN_HELP_TEXT)
+    NF1_genotype = models.CharField('NF1 genotype', max_length=200, blank=True, help_text='연관 유전자 자위')
+    dna = models.CharField('DNA', max_length=200, blank=True, help_text='유전자 변이 (DNA)')
+    protein = models.CharField('Protein', max_length=200, blank=True, help_text='유전자 변이 (protein)')
+    domain = models.CharField('Domain', max_length=20, blank=True, help_text=DOMAIN_HELP_TEXT)
 
     mutation_type = models.IntegerField('Mutation type', choices=MUTATION_TYPE_CHOICES, null=True, blank=True, help_text=MUTATION_TYPE_HELP_TEXT)
     inframe_deletion_or_insertion = models.IntegerField('Inframe deletion or insertion', choices=BOOLEAN_CHOICES, null=True, blank=True, help_text='인델 돌연변이(유무; 유전자 인프레임 삭제 또는 삽입; 유전자 전사와 번역 과정이 중지되지 않음)')
@@ -99,7 +99,7 @@ Syn
 
     _25_OH_vitamin_D = models.DecimalField('25-OH vitamin D', max_digits=10, decimal_places=2, null=True, blank=True, help_text='25-하이드록시 비타민 D 검사 수치')
     HEARING = models.IntegerField('Hearing difficulty', choices=BOOLEAN_CHOICES, null=True, blank=True, help_text='청력 장애 (유무; 신경학적 판단)')
-    OTHER = models.IntegerField('Other', null=True, blank=True, help_text='기타')
+    OTHER = models.TextField('Other', null=True, blank=True, help_text='기타')
 
     BRAIN_MR_DATE = models.DateField('BRAIN MR DATE', null=True, blank=True, help_text='뇌 MR 촬영 날짜')
     BRAIN_age_at_evaluation = models.IntegerField('Age at brain MR', null=True, blank=True, help_text='뇌 MR 촬영시 연령')
