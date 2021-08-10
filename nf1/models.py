@@ -82,9 +82,9 @@ Syn
     relative_macrocephaly = models.IntegerField('Relative macrocephaly', choices=BOOLEAN_CHOICES, null=True, blank=True, help_text='상대적 대두증 (성조숙증으로 인한 평균 이상의 머리둘레; 신체적 평가)')
     lish_nodules = models.IntegerField('Lish nodules', choices=BOOLEAN_CHOICES, null=True, blank=True, help_text='홍채에 작고 색조를 띈 과오종인 리쉬결절 (안과적 평가)')
 
-    height_at_dx = models.FloatField('Height at Dx', validators=[MinValueValidator(0.0), MaxValueValidator(1.0)], null=True, blank=True, help_text='진단시 환자의 키 (신체적 평가)')
-    # TODO: FloatField 최소 최대값 처리
-    height_SDS = models.FloatField('Height (SDS)', validators=[MinValueValidator(0.0), MaxValueValidator(1.0)], null=True, blank=True, help_text='상대적 키 (신체적 평가, SD score)')
+    height_at_dx = models.DecimalField('Height at Dx', max_digits=10, decimal_places=2, null=True, blank=True, help_text='진단시 환자의 키 (신체적 평가)')
+    # TODO: DecimalField 최소 최대값 처리
+    height_SDS = models.DecimalField('Height (SDS)', max_digits=10, decimal_places=2, null=True, blank=True, help_text='상대적 키 (신체적 평가, SD score)')
 
     learning_difficulty = models.PositiveIntegerField('Learning difficulty', choices=BOOLEAN_CHOICES, null=True, blank=True, help_text='학습장애 (심리학적 평가)')
     adhd = models.IntegerField('ADHD', choices=BOOLEAN_CHOICES, null=True, blank=True, help_text='주의력결핍 과잉행동장애 (심리학적 평가)')
@@ -97,7 +97,7 @@ Syn
     cardiac_myopathy = models.IntegerField('Cardiac myopathy', choices=BOOLEAN_CHOICES, null=True, blank=True, help_text='심장 근병증 (유무; 영상학적 소견)')
     Cardiac_myopathy_FINDINGS = models.TextField('Cardiac myopathy FINDINGS', null=True, blank=True, help_text='이상 소견')
 
-    _25_OH_vitamin_D = models.FloatField('25-OH vitamin D', null=True, blank=True, help_text='25-하이드록시 비타민 D 검사 수치')
+    _25_OH_vitamin_D = models.DecimalField('25-OH vitamin D', max_digits=10, decimal_places=2, null=True, blank=True, help_text='25-하이드록시 비타민 D 검사 수치')
     HEARING = models.IntegerField('Hearing difficulty', choices=BOOLEAN_CHOICES, null=True, blank=True, help_text='청력 장애 (유무; 신경학적 판단)')
     OTHER = models.IntegerField('Other', null=True, blank=True, help_text='기타')
 
@@ -133,8 +133,12 @@ Syn
     malignant_peripheral_nerve_sheath_tumor = models.IntegerField('Malignant peripheral nerve sheath tumor', choices=BOOLEAN_CHOICES, null=True, blank=True, help_text='악성 말초신경 수초 종양 (유무)')
     moyamoya_ds = models.IntegerField('Moyamoya disease', choices=BOOLEAN_CHOICES, null=True, blank=True, help_text='모야모야 진단 (합병증 유무)')
     osteopenia = models.IntegerField('Osteopenia', choices=BOOLEAN_CHOICES, null=True, blank=True, help_text='골감소증 (유무; 정형외과적 판단)')
-    Spine_z_score = models.IntegerField('Spine (z score)', null=True, blank=True, help_text='척추 (통계학적 수치)')
-    Femur_z_score = models.IntegerField('Femur (z score)', null=True, blank=True, help_text='대퇴골 (통계학적 수치)')
+    Spine_z_score = models.DecimalField('Spine (z score)',
+                                        max_digits=10, decimal_places=2, validators=[MaxValueValidator(1), MinValueValidator(0)],
+                                        null=True, blank=True, help_text='척추 (통계학적 수치)')
+    Femur_z_score = models.DecimalField('Femur (z score)',
+                                        max_digits=10, decimal_places=2, validators=[MaxValueValidator(1), MinValueValidator(0)],
+                                        null=True, blank=True, help_text='대퇴골 (통계학적 수치)')
 
     dysplasia_of_long_bone = models.IntegerField('Dysplasia of long bone', choices=BOOLEAN_CHOICES, null=True, blank=True, help_text='경골의 이형성증')
     dysplasia_of_long_bone_location = models.CharField('Dysplasia of long bone location', max_length=200, null=True, blank=True, help_text='관찰 부위')
