@@ -6,10 +6,10 @@ class Ird(models.Model):
     SORTATION_TYPE = ((1,1), (2,2))
 
     case_no = models.PositiveIntegerField('차트번호', null=True, blank=True)
-    name = models.CharField('성명', max_length=20, unique=True, blank=True)
+    name = models.CharField('성명', max_length=20, blank=True)
     birth_year_and_month = models.DateTimeField('생년월일', blank=True)
     sex = models.PositiveIntegerField('SEX', choices=SEX_TYPE, null=True, blank=True)
-    finding = models.TextField('특이사항', unique=True, blank=True)
+    finding = models.TextField('특이사항', blank=True)
     sortation = models.PositiveIntegerField('구분', choices=SORTATION_TYPE, null=True, blank=True)
     ARK_SPH = models.PositiveIntegerField('ARK_SPH', null=True, blank=True)
     ARK_CYL = models.PositiveIntegerField('ARK_CYL', null=True, blank=True)
