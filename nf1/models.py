@@ -157,8 +157,8 @@ Syn
     number_of_operations = models.PositiveIntegerField('Number of operations', null=True, blank=True,
                                             help_text='수술 횟수')
 
-    last_follow_up_date = models.PositiveIntegerField('last f/u date', null=True, blank=True, help_text='최근 재진/팔로업 날짜')
-    last_follow_up_age = models.FloatField('last f/u age', null=True, blank=True, help_text='최근 재진/팔로업시 연령')
+    last_follow_up_date = models.DateField('last f/u date', null=True, blank=True, help_text='최근 재진/팔로업 날짜')
+    last_follow_up_age = models.PositiveIntegerField('last f/u age', null=True, blank=True, help_text='최근 재진/팔로업시 연령')
 
     updated_at = models.DateTimeField(auto_now=True, blank=True)  # 업데이트 시각
     created_at = models.DateTimeField(auto_now_add=True, blank=True)  # 생성 시각
