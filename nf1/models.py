@@ -181,8 +181,8 @@ Syn
     number_of_operations = models.PositiveIntegerField('Number of operations', null=True, blank=True,
                                             help_text='수술 횟수')
 
-    last_follow_up_date = models.DateField('last f/u date', null=True, blank=True, help_text='최근 재진/팔로업 날짜')
-    last_follow_up_age = models.PositiveIntegerField('last f/u age', null=True, blank=True, help_text='최근 재진/팔로업시 연령')
+    last_follow_up_date = models.DateField('Date at last f/u', null=True, blank=True, help_text='최근 재진/팔로업 날짜')
+    last_follow_up_age = models.PositiveIntegerField('Age at last f/u', null=True, blank=True, help_text='최근 재진/팔로업시 연령')
 
     updated_at = models.DateTimeField(auto_now=True, blank=True)  # 업데이트 시각
     created_at = models.DateTimeField(auto_now_add=True, blank=True)  # 생성 시각
@@ -194,7 +194,7 @@ Syn
         self.BRAIN_age_at_evaluation = calculate_age(self.BRAIN_MR_DATE, self.birth_date)
         self.Age_at_Spine_MR = calculate_age(self.SPINE_MR_DATE, self.birth_date)
         self.Age_at_Whole_body_MR = calculate_age(self.Whole_body_MR_DATE, self.birth_date)
-
+        self.last_follow_up_age = calculate_age(self.last_follow_up_date, self.birth_date)
         super(Crf, self).save(*args, **kwargs)
 
 

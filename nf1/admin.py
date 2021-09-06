@@ -116,6 +116,7 @@ class CrfAdmin(admin.ModelAdmin):
         'BRAIN_age_at_evaluation',
         'Age_at_Spine_MR',
         'Age_at_Whole_body_MR',
+        'last_follow_up_age',
         
         'updated_at',
         'created_at',
