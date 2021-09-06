@@ -11,3 +11,13 @@ class IrdAdmin(admin.ModelAdmin):
     list_display_links = list_display
     list_filter = list_display
 
+@admin.register(IrdHistory)
+class IrdHistoryAdmin(admin.ModelAdmin):
+    list_display = (
+        'id',
+        'name',
+        'birthdate',
+    )
+    list_display_links = list_display
+    list_filter = list_display
+
