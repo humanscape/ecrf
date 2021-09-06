@@ -5,6 +5,12 @@ from .models import *
 
 class CrfOperationsInline(admin.TabularInline):
     model = CrfOperations
+    fields = (
+        'crf','no','date','age','status','reason','method'
+    )
+    readonly_fields = (
+        'age',
+    )
     extra = 1
 
 
@@ -62,6 +68,17 @@ class CrfAdmin(admin.ModelAdmin):
         'BRAIN_FINDINGS',
         'FASI',
 
+        'FASI_FINDINGS',
+        'optic_pathway_glioma',
+        'Vascular_anomaly',
+        'SPINE_MR_DATE',
+        'Age_at_Spine_MR',
+        'Age_at_Spine_MR_FINDINGS',
+
+        'Whole_body_MR_DATE',
+        'Age_at_Whole_body_MR',
+        'Age_at_Whole_body_MR_FINDINGS',
+        
         'plexiform_neurofibromas',
         'plexiform_neurofibromas_3cm_above',
 
@@ -94,6 +111,12 @@ class CrfAdmin(admin.ModelAdmin):
     )
     readonly_fields = (
         'age',
+        'age_at_dx',
+        'age_at_evaluation',
+        'BRAIN_age_at_evaluation',
+        'Age_at_Spine_MR',
+        'Age_at_Whole_body_MR',
+        
         'updated_at',
         'created_at',
     )
