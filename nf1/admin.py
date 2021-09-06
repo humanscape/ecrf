@@ -20,7 +20,9 @@ class CrfAdmin(admin.ModelAdmin):
         'family_no',
         'family_hx',
         'sex',
+
         'birth_date',
+        'age',
         'date_at_dx',
         'age_at_dx',
 
@@ -90,6 +92,12 @@ class CrfAdmin(admin.ModelAdmin):
         'created_at',
 
     )
-    list_display_links = list_display
-    list_filter = list_display
+    readonly_fields = (
+        'age',
+        'updated_at',
+        'created_at',
+    )
+    fields = list_display
+    list_display_links = fields
+    list_filter = fields
 

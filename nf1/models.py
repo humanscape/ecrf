@@ -1,5 +1,11 @@
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
+from datetime import datetime, date
+
+
+def calculate_age(to_date, from_date):
+    return to_date.year - from_date.year - ((to_date.month, to_date.day) < (from_date.month, from_date.day))
+
 
 class Crf(models.Model):
     SEX_TYPE = ((1, 'Male'), (2, 'Female'), (3, 'All'))
@@ -55,9 +61,10 @@ Syn
     name = models.CharField('Name', max_length=20, null=True, blank=True, help_text='환자 이름')
     case_no = models.PositiveIntegerField('Case no.', null=True, blank=True, help_text='사건/차트 번호')
     family_no = models.PositiveIntegerField('Family no.', null=True, blank=True, help_text='가족 번호')
-    family_hx = models.PositiveIntegerField('Family Hx', choices=BOOLEAN_CHOICES, null=True, blank=True, help_text='가족 병력')
-    sex = models.PositiveIntegerField('SEX', choices=SEX_TYPE, null=True, blank=True, help_text='성별')
-    birth_date = models.DateField('Birth year and month', null=True, blank=True, help_text='생년월일')
+    family_hx = models.PositiveIntegerField('Family Hx', choices=BOOLEAN_CHOICES, null=True, blank=True, help_text='가족 병력<br/>(0:없음, 1: 있음, 모름)')
+    sex = models.PositiveIntegerField('SEX', choices=SEX_TYPE, null=True, blank=True, help_text='성별<br/>(0:남자, 1: 여자, 3:전부, 모름)')
+    birth_date = models.DateField('Birth year and month', null=True, blank=True, help_text='생년월일<br/>입력시 오늘 날짜 기준으로 나이가 입력됩니다.')
+    age = models.PositiveIntegerField('Age', null=True, blank=True, help_text='자동 반영')
     date_at_dx = models.DateField('Date at Dx', null=True, blank=True, help_text='진단 받은 날짜')
     age_at_dx = models.PositiveIntegerField('Age at Dx', null=True, blank=True, help_text='진단시 연령')
     date_at_evaluation_dna = models.DateField('Date at evaluation(유전자 검사)', null=True, blank=True, help_text='유전자 검사 날짜')
@@ -166,6 +173,10 @@ Syn
 
     updated_at = models.DateTimeField(auto_now=True, blank=True)  # 업데이트 시각
     created_at = models.DateTimeField(auto_now_add=True, blank=True)  # 생성 시각
+
+    def save(self, *args, **kwargs):
+        self.age = calculate_age(datetime.now(), self.birth_date)
+        super(Crf, self).save(*args, **kwargs)
 
 
 class CrfOperations(models.Model):
