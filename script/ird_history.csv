@@ -1,0 +1,105 @@
+"데이터 제목[영문소문자, 숫자, 밑줄(_) ] : ",TEST,최종수정일,2021-08-27,,
+"데이터 이름
+[영문소문자, 숫자, 밑줄(_) ]",명칭,설명 텍스트,데이터 형식,데이터 예제,비고
+name,이름,성명,단어(character),이*현,
+birthdate,생년월일,생년월일,날짜(date),1988-03-04,
+sex,성별,성별,선택이있는데이터(choices),1,"(1:male, 2:female, 3:unknown)"
+score,스코어,점수,소수점이있는실수(decimal),2.33,소수점 2째자리까지 표현
+name,이름,성명,단어(character),박*인,
+birthdate,생년월일,생년월일,날짜(date),1995-05-05,
+sex,성별,성별,선택이있는데이터(choices),1,"(1:male, 2:female)"
+address,주소,도/시,줄글(text),경상북도 김천시,
+age,나이,나이,자연수(positive integer),50,
+od_os,구분,OD/OS,선택이있는데이터(choices),1,"1:OD, 2:OS"
+sph,ARK_SPH,원/근시,소수점이있는실수(decimal),-2.25,소수점 2째자리까지 표현
+cyl,ARK_CYL,난시,소수점이있는실수(decimal),-1.25,소수점 2째자리까지 표현
+km,ARK_KM,각막난시,소수점이있는실수(decimal),43.25,소수점 2째자리까지 표현
+k_cyl,ARK_K(Cyl),각막난시량,소수점이있는실수(decimal),-1.25,소수점 2째자리까지 표현
+k_axis,ARK_K(Axis),각막난시축,자연수(positive integer),180,
+udva,UDVA,원거리나안시력,소수점이있는실수(decimal),0.5,소수점 1째자리까지 표현
+unva,UNVA,근거리나안시력,소수점이있는실수(decimal),0.4,소수점 1째자리까지 표현
+cdva,CDVA,원거리교정시력,소수점이있는실수(decimal),0.2,소수점 1째자리까지 표현
+cnva,CNVA,근거리교정시력,소수점이있는실수(decimal),0.1,소수점 1째자리까지 표현
+iop,IOP,안압,소수점이있는실수(decimal),15.5,소수점 1째자리까지 표현
+cst,HOCT_CST,중심망막 두께,자연수(positive integer),325,
+vfi,VF_VFI,중심시야 대비감도,자연수(positive integer),23,
+cones_a,ERG_Cones_a,망막전위도검사,소수점이있는실수(decimal),2.3,소수점 1째자리까지 표현
+cones_b,ERG_Cones_b,망막전위도검사,소수점이있는실수(decimal),4.5,소수점 1째자리까지 표현
+flicker,ERG_Flicker,망막전위도검사,소수점이있는실수(decimal),12.3,소수점 1째자리까지 표현
+pattern_n35_mono,ERG_Pattern_n35_mono,망막전위도검사,소수점이있는실수(decimal),24.5,소수점 1째자리까지 표현
+pattern_p50_mono,ERG_Pattern_p50_mono,망막전위도검사,소수점이있는실수(decimal),26.5,소수점 1째자리까지 표현
+pattern_n95_mono,ERG_Pattern_n95_mono,망막전위도검사,소수점이있는실수(decimal),23.7,소수점 1째자리까지 표현
+pattern_n35_bi,ERG_Pattern_n35_bi,망막전위도검사,소수점이있는실수(decimal),29.6,소수점 1째자리까지 표현
+pattern_p50_bi,ERG_Pattern_p50_bi,망막전위도검사,소수점이있는실수(decimal),30.2,소수점 1째자리까지 표현
+pattern_n95_bi,ERG_Pattern_n95_bi,망막전위도검사,소수점이있는실수(decimal),24.5,소수점 1째자리까지 표현
+rods_a,ERG_Rods_a,망막전위도검사,소수점이있는실수(decimal),4.3,소수점 1째자리까지 표현
+rods_b,ERG_Rods_b,망막전위도검사,소수점이있는실수(decimal),5.5,소수점 1째자리까지 표현
+maximal_a,ERG_Maximal_a,망막전위도검사,소수점이있는실수(decimal),4.2,소수점 1째자리까지 표현
+maximal_b,ERG_Maximal_b,망막전위도검사,소수점이있는실수(decimal),14.5,소수점 1째자리까지 표현
+maximal_c,ERG_Maximal_c,망막전위도검사,소수점이있는실수(decimal),6.8,소수점 1째자리까지 표현
+first_symptom_age,첫 증상 나이,처음 눈에 증상이 나타난 나이는 언제인가요?,자연수(positive integer),26,만 (    )세 
+first_symptom_year,첫 증상 연도,처음 눈에 증상이 나타난 연도는 언제인가요?,자연수(positive integer),2000,(    )년
+first_diagnosis_age,첫 진단 나이,병원을 통해 처음 질환을 진단 받았던 나이는 언제인가요?,자연수(positive integer),26,만 (    )세 
+first_diagnosis_year,첫 진단 연도,병원을 통해 처음 질환을 진단 받았던 연도는 언제인가요?,자연수(positive integer),2000,(    )년
+pedigree,가계도,가족 구성원이 어떻게 되시나요?,줄글(text),,이미지 삽입 (캡쳐파일 업로드)
+familyhistory_diagnosis1,가족 같은 종류 진단,가족 중에서 같은 종류의 유전성 망막질환을 진단받은 사람이 있으신가요?,선택이있는데이터(choices),1,"(1:네, 2:아니오, 3:모름)"
+familyhistory_diagnosis2,가족 다른 종류 진단,가족 중에서 다른 종류의 유전성 망막질환을 진단받은 사람이 있으신가요? ,선택이있는데이터(choices),1,"(1:네, 2:아니오, 3:모름)"
+familyhistory_diagnosis_name,가족 다른 종류 진단 명,가족중에서 다른 종류의 유전성 망막질환이 있는 경우 그분의 질병은 무엇인가요?,단어(character),스타가르트병,
+other_diagnosis,그외 다른 질환,그외 다른 질환이 있나요?,선택이있는데이터(choices),1,"(1:네, 2:아니오, 3: 모름)"
+night_blindness,야맹증,야맹증이 있으신가요?,선택이있는데이터(choices),3,"(1:네, 2:아니오, 3:모름)"
+peripheral_vision,주변(측면) 시력,주변(측력) 시력이 떨어지고 있나요?,선택이있는데이터(choices),1,"(1:네, 2:아니오, 3:모름)"
+central_vision,중심 시력,중심 시력이 조금이라도 떨어졌나요?,선택이있는데이터(choices),1,"(1:네, 2:아니오, 3:모름)"
+read,읽기,책이나 컴퓨터 화면 등을 읽을 수 있으신가요?,선택이있는데이터(choices),1,"(1:네, 2:아니오, 3:모름)"
+eyeglasses_lens,"안경, 콘택트 렌즈",처방받은 안경이나 콘택트 렌즈를 사용하시나요?,선택이있는데이터(choices),2,"(1:네, 2:아니오, 3:모름)"
+object_recognition,물체 확인,멀리 떨어져 있는 물체를 볼 수 있으신가요?,선택이있는데이터(choices),2,"(1:네, 2:아니오, 3:모름)"
+cataract,백내장,백내장이 있으신가요?,선택이있는데이터(choices),1,"(1:네, 2:아니오, 3:모름)"
+glaucoma,녹내장,녹내장이 있으신가요?,선택이있는데이터(choices),1,"(1:네, 2:아니오, 3:모름)"
+retinal_detachment,망막박리,망막박리가 있으신가요?,선택이있는데이터(choices),3,"(1:네, 2:아니오, 3:모름)"
+retinal_detachment_age,망막박리 발생 나이,"몇 살 때, 망막박리가 나타났나요?",자연수(positive integer),29,만(     )세
+dark_adaptation,암순응,현재 암순응(밝은 곳에서 어두운 곳으로 들어갈 때 적응하는 상태)에 문제가 있으신가요?,선택이있는데이터(choices),1,"(1:네, 2:아니오, 3:모름)"
+dark_adaptation_age,암순응 인지 나이,"몇 살 때, 암순응에 문제가 있다고 처음 인지하셨나요?",자연수(positive integer),29,만(     )세
+photopsia,광시증,광시증(갑자기 눈앞이 번쩍거리는 증상)이 있으신가요?,선택이있는데이터(choices),2,"(1:네, 2:아니오, 3:모름)"
+photopsia_age,광시증 경험 나이,"몇 살 때, 광시증을 처음 경험하셨나요?",자연수(positive integer),29,만(     )세
+color_sense,색각,색각(색채 구별)에 문제가 있으신가요?,선택이있는데이터(choices),3,"(1:네, 2:아니오, 3:모름)"
+best_year,가장 좋았을때 년도,,자연수(positive integer),2000,(    )년
+best_age,가장 좋았을때 나이,,자연수(positive integer),40,만(     )세
+best_va,가장 좋았을때 시력측정 가능 여부,,선택이있는데이터(choices),1,"(1:네, 2:아니오, 3:모름)"
+best_lp_lt,가장 좋았을때 시력측정 불가할 경우 빛인지_좌,,선택이있는데이터(choices),LP+,"(LP+, LP, 모름)"
+best_lp_rt,가장 좋았을때 시력측정 불가할 경우 빛인지_우,,선택이있는데이터(choices),LP+,"(LP+, LP, 모름)"
+best_va_lt,가장 좋았을때 시력 좌,,소수점이있는실수(decimal),0.03,
+best_va_rt,가장 좋았을때 시력 우,,소수점이있는실수(decimal),0.03,
+best_vfi_lt,가장 좋았을때 시야 좌,,자연수(positive integer),30%,
+best_vfi_rt,가장 좋았을때 시야 우,,자연수(positive integer),100%,
+best_night_blindness,가장 좋았을때 야맹증,,선택이있는데이터(choices),1,"(1:유, 2:무, 3:모름)"
+best_photopsia,가장 좋았을때 눈부심,,선택이있는데이터(choices),1,"(1:유, 2:무, 3:모름)"
+best_cataract,가장 좋았을때 백내장,,선택이있는데이터(choices),2,"(1:유, 2:무, 3:모름)"
+best_hearing_defect,가장 좋았을때 청각장애,,선택이있는데이터(choices),2,"(1:유, 2:무, 3:모름)"
+best_pedigree,가장 좋았을때 가족력,,선택이있는데이터(choices),3,"(1:유, 2:무, 3:모름)"
+first_year,최초 진단시 년도,,자연수(positive integer),2000,(    )년
+first_age,최초_진단시 나이,,자연수(positive integer),40,만(     )세
+first_va,최초 진단시 시력측정 가능 여부,,선택이있는데이터(choices),1,"(1:네, 2:아니오, 3:모름)"
+first_lp_lt,최초 진단시 시력측정 불가할 경우 빛인지_좌,,선택이있는데이터(choices),LP+,"(LP+, LP, 모름)"
+first_lp_rt,최초 진단시 시력측정 불가할 경우 빛인지_우,,선택이있는데이터(choices),LP+,"(LP+, LP, 모름)"
+first_va_lt,최초 진단시 시력 좌,,줄글(text),0.03,
+first_va_rt,최초 진단시 시력 우,,줄글(text),0.03,
+first_vfi_lt,최초 진단시 시야 좌,,자연수(positive integer),30%,
+first_vfi_rt,최초 진단시 시야 우,,자연수(positive integer),100%,
+first_night_blindness,최초 진단시 야맹증,,선택이있는데이터(choices),1,"(1:유, 2:무, 3:모름)"
+first_photopsia,최초 진단시 눈부심,,선택이있는데이터(choices),1,"(1:유, 2:무, 3:모름)"
+first_cataract,최초 진단시 백내장,,선택이있는데이터(choices),2,"(1:유, 2:무, 3:모름)"
+first_hearing_defect,최초 진단시 청각장애,,선택이있는데이터(choices),2,"(1:유, 2:무, 3:모름)"
+first_pedigree,최초 진단시 가족력,,선택이있는데이터(choices),3,"(1:유, 2:무, 3:모름)"
+current_year,현재 년도,,자연수(positive integer),2000,(    )년
+current_age,현재 나이,,자연수(positive integer),40,만(     )세
+current_va,현재 시력측정 가능 여부,,선택이있는데이터(choices),1,"(1:네, 2:아니오, 3:모름)"
+current_lp_lt,현재 시력측정 불가할 경우 빛인지_좌,,선택이있는데이터(choices),LP+,"(LP+, LP, 모름)"
+current_p_rt,현재 시력측정 불가할 경우 빛인지_우,,선택이있는데이터(choices),LP+,"(LP+, LP, 모름)"
+current_va_lt,현재 시력 좌,,줄글(text),LP(-),"Light Perception이라고 (LP)라고 표기하는데 빛을 인식하면 (LP +), 인식하지 못하면 (LP -) 이렇게 표기"
+current_va_rt,현재 시력 우,,줄글(text),0.2,시력 측정 가능한 경우
+current_vfi_lt,현재 시야 좌,,자연수(positive integer),30%,
+current_vfi_rt,현재 시야 우,,자연수(positive integer),25%,
+current_night_blindness,현재_야맹증,,선택이있는데이터(choices),1,"(1:유, 2:무, 3:모름)"
+current_photopsia,현재 눈부심,,선택이있는데이터(choices),1,"(1:유, 2:무, 3:모름)"
+current_cataract,현재 백내장,,선택이있는데이터(choices),2,"(1:유, 2:무, 3:모름)"
+current_hearing_defect,현재 청각장애,,선택이있는데이터(choices),2,"(1:유, 2:무, 3:모름)"
+current_pedigree,현재의 상태 가족력,,선택이있는데이터(choices),3,"(1:유, 2:무, 3:모름)"
