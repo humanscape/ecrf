@@ -36,9 +36,9 @@ class Crf(models.Model):
                                        help_text='NF1 돌연변이<br/>0 : 없음<br/>1 : 있음')
     dna = models.CharField('DNA', max_length=200, null=True, blank=True, help_text='유전자 변이 (DNA)<br/>예제 c.7126G>C')
     protein = models.CharField('Protein', max_length=200, null=True, blank=True, help_text='유전자 변이 (Protein)<br/>예제 p.Gly2376Arg')
-    domain = models.IntegerField('Domain', choices=[(i, i) for i in range(7)], null=True, blank=True,
+    domain = models.IntegerField('Domain', choices=[(i, i) for i in range(1, 7)], null=True, blank=True,
                                  help_text='도메인<br/>1 : Cysteine/serine rich domain with three cystein pairs (CSRD)<br/>- ATP binding, cAMP- dependent protein kinase (PKA) recognition site<br/>- exon 11-17,<br/>- p. 543-909<br/><br/>2 : Tub<br/> - p. 1095-1176<br/><br/>3 : GTPase- activating protein (GAP) related domain (GRD)<br/> - catalytic RasGAP activity<br/> - exon20-27a, <br/>-  p. 1198-1530<br/><br/>4 : Sec14-line lipid binding domain<br/> - p. 1560 – 1698<br/><br/>5 : Pleckstin homology(PH) like domain<br/> - p. 1713 – 1816<br/><br/>6 : Syn<br/> - p. 2619 – 2719')
-    mutation_type = models.IntegerField('Mutation type', choices=[(i, i) for i in range(6)], null=True, blank=True,
+    mutation_type = models.IntegerField('Mutation type', choices=[(i, i) for i in range(1, 6)], null=True, blank=True,
                                         help_text='돌연변이 유형<br/>1 : Missense<br/>2 : Nonsense<br/>3 : Frameshift<br/>4 : Splicing<br/>5 : Large deletion')
     inframe_deletion_or_insertion = models.IntegerField('Inframe deletion or insertion',
                                                         choices=[(i, i) for i in range(3)], null=True, blank=True,
@@ -172,7 +172,7 @@ class Crf(models.Model):
     # AUTO
     age_at_breast_usg = models.IntegerField('Age at breast USG', null=True, blank=True,
                                                     help_text='유방 초음파 검사시 나이')
-    birads_i_ii_iii_iv = models.IntegerField('BIRADS I/II/III/IV', choices=[(i, i) for i in range(5)], null=True,
+    birads_i_ii_iii_iv = models.IntegerField('BIRADS I/II/III/IV', choices=[(i, i) for i in range(1, 5)], null=True,
                                              blank=True,
                                              help_text='질환 경과  단계<br/>1 : BIRADS I<br/>2 : BIRADS II<br/>3 ; BIRADS III<br/>4 : BIRADS IV')
     breast_usg_findings = models.TextField('Breast USG Findings', null=True, blank=True,
@@ -208,7 +208,7 @@ class CrfOperations(models.Model):
     crf = models.ForeignKey('Crf', related_name='crfOperations', on_delete=models.CASCADE)
     no = models.PositiveIntegerField('수술 번호', null=True, blank=True, help_text='수술 번호')
     date = models.DateField('수술 시기', null=True, blank=True, help_text='수술 시기<br/>수술시기 입력시 나이가 입력됩니다.')
-    age = models.PositiveIntegerField('수술 나이', null=True, blank=True, help_text='수술 나이')
+    age = models.IntegerField('수술 나이', null=True, blank=True, help_text='수술 나이')
     status = models.CharField('수술 부위', max_length=200, null=True, blank=True, help_text='수술 부위')
     reason = models.TextField('수술 이유', null=True, blank=True, help_text='수술 이유')
     method = models.CharField('완전절제/부분절제', max_length=200, null=True, blank=True, help_text='완전절제/부분절제')
