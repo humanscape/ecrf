@@ -217,3 +217,8 @@ class CrfOperations(models.Model):
         self.age = calculate_age(self.date, self.crf.birth_year_and_month)
 
         super(CrfOperations, self).save(*args, **kwargs)
+
+
+    class Meta:
+        verbose_name = "Operations"
+        verbose_name_plural = "Operations"
