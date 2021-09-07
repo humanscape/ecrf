@@ -98,7 +98,7 @@ class Crf(models.Model):
     # AUTO
     age_at_brain_mr = models.IntegerField('Age at Brain MR', null=True, blank=True, help_text='뇌 MR 촬영시 나이')
     mr_findings = models.TextField('Brain MR Findings', null=True, blank=True, help_text='뇌 MR 스캔 결과 기술 (영상학적 판단)')
-    fasi = models.IntegerField('FASI(focal areas of signal intensity)', choices=[(i, i) for i in range(3)], null=True,
+    fasi = models.IntegerField('FASI (focal areas of signal intensity)', choices=[(i, i) for i in range(3)], null=True,
                                blank=True,
                                help_text='고음영 병변 (unidentified bright objects, UBO; 임상적 판단)<br/>0 : 없음<br/>1 : 있음<br/>2 : 모름')
     fasi_findings = models.CharField('FASI Findings', max_length=200, null=True, blank=True, help_text='FASI  발견 부위 (영상학적 판단)')
