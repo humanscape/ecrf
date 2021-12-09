@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <style>
+            table {
+                border-collapse: collapse;
+                border: 2px black solid;
+                font: 12px sans-serif;
+            }
+
+            td {
+                border: 1px black solid;
+                padding: 5px;
+            }
+        </style>
+    </head>
+    <body>
+        <input hidden id="file_url" value={{url}}></input>
+        <script src="https://d3js.org/d3.v3.min.js"></script>
+        <script type="text/javascript" charset="utf-8">
+            $(function () { 
+                d3.text($('#file_url').val(), function(data) {
+                    let parsedCSV = d3.csv.parseRows(data);
+    
+                    let container = d3.select("body")
+                        .append("table")
+    
+                        .selectAll("tr")
+                            .data(parsedCSV).enter()
+                            .append("tr")
+    
+                        .selectAll("td")
+                            .data(function(d) { return d; }).enter()
+                            .append("td")
+                            .text(function(d) { return d; });
+                });
+            })
+        </script>
+    </body>
+</html>
