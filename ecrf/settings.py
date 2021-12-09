@@ -41,7 +41,8 @@ THIRD_PARTY_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rangefilter',
-    'import_export'
+    'import_export',
+    'encrypted_fields'
 ]
 
 LOCAL_APPS = ['nf1', 'ird']

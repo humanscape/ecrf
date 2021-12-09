@@ -7,6 +7,7 @@ Django==3.2.4
 django-admin-rangefilter==0.8.1
 django-environ==0.4.5
 django-import-export==2.5.0
+django-searchable-encrypted-fields==0.1.9
 django-storages==1.11.1
 environ==1.0
 et-xmlfile==1.1.0
