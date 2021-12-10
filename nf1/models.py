@@ -2,7 +2,11 @@ from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
 from datetime import datetime, date
 from django.utils.safestring import mark_safe
+from django.core.validators import FileExtensionValidator
 
+from encrypted_fields.fields import *
+
+from .assets import CALCULATE_AGE_FIELDS
 
 def calculate_age(to_date, from_date):
     if to_date is None or from_date is None:
@@ -14,14 +18,14 @@ class Crf(models.Model):
     date_at_evaluation_diagnosis = models.DateField('Date at evaluation (Diagnosis)', null=True, blank=True,
                                                     help_text='진단을 받은 날짜')
     patient_number = models.PositiveIntegerField('Patient No.', null=True, blank=True, help_text='환자 번호')
-    name = models.CharField('Name', max_length=200, null=True, blank=True, help_text='환자 이름')
+    name = EncryptedCharField('Name', max_length=200, null=True, blank=True, help_text='환자 이름')
     case_no = models.PositiveIntegerField('Case No.', null=True, blank=True, help_text='사건/차트 번호')
     family_no = models.PositiveIntegerField('Family No.', null=True, blank=True, help_text='가족 번호')
     family_hx = models.IntegerField('Family Hx.', choices=[(i, i) for i in range(3)], null=True, blank=True,
                                     help_text='가족 병력<br/>0: 없음<br/>1: 있음<br/>2: 모름')
     sex = models.IntegerField('Sex', choices=[(i, i) for i in range(4)], null=True, blank=True,
                               help_text='성별<br/>0 : 남자<br/>1 : 여자<br/>2 : 전부<br/>3 : 모름')
-    birth_year_and_month = models.DateField('Birth year and month', null=True, blank=True,
+    birth_year_and_month = EncryptedDateField('Birth year and month', null=True, blank=True,
                                             help_text='생년월일<br/>입력시 오늘 날짜 기준으로 나이가 입력됩니다.')
     # AUTO
     age = models.IntegerField('Age', null=True, blank=True, help_text='나이')
@@ -193,14 +197,13 @@ class Crf(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, blank=True)  # 생성 시각
 
     def save(self, *args, **kwargs):
-        self.age = calculate_age(datetime.now(), self.birth_year_and_month)
-        self.age_at_dx = calculate_age(self.date_at_dx, self.birth_year_and_month)
-        self.age_at_evaluation = calculate_age(self.date_at_evaluation, self.birth_year_and_month)
-        self.age_at_brain_mr = calculate_age(self.brain_mr_date, self.birth_year_and_month)
-        self.age_at_spine_mr = calculate_age(self.spine_mr_date, self.birth_year_and_month)
-        self.age_at_whole_body_mr = calculate_age(self.whole_body_mr_date, self.birth_year_and_month)
-        self.age_at_breast_usg = calculate_age(self.date_at_breast_usg, self.birth_year_and_month)
-        self.last_fu_age = calculate_age(self.last_fu_date, self.birth_year_and_month)
+        fields = self._meta.get_fields()
+        for field in fields:
+            if field.name in CALCULATE_AGE_FIELDS['crf'].keys():
+                if field.name == 'age':
+                    setattr(self, field.name, calculate_age(datetime.now(), self.birth_year_and_month))
+                else:
+                    setattr(self, field.name, calculate_age(getattr(self, CALCULATE_AGE_FIELDS['crf'][field.name]), self.birth_year_and_month))
         super(Crf, self).save(*args, **kwargs)
 
 

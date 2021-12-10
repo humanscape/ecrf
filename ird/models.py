@@ -1,13 +1,15 @@
 from django.db import models
+from django.core.validators import FileExtensionValidator
 
+from encrypted_fields.fields import *
 
 class Ird(models.Model):
     SEX_TYPE = ((1, 'Male'), (2, 'Female'), (3, 'All'))
     SORTATION_TYPE = ((1,1), (2,2))
 
     case_no = models.PositiveIntegerField('차트번호', null=True, blank=True)
-    name = models.CharField('성명', max_length=20, null=True, blank=True)
-    birth_year_and_month = models.DateField('생년월일', null=True, blank=True)
+    name = EncryptedCharField('성명', max_length=20, null=True, blank=True)
+    birth_year_and_month = EncryptedDateField('생년월일', null=True, blank=True)
     sex = models.PositiveIntegerField('SEX', choices=SEX_TYPE, null=True, blank=True)
     finding = models.TextField('특이사항', null=True, blank=True)
     sortation = models.PositiveIntegerField('구분', choices=SORTATION_TYPE, null=True, blank=True)
@@ -57,10 +59,10 @@ class IrdHistory(models.Model):
     EXISTENCE_CHOICES = ((1, '유'), (2, '무'), (3, '모름'))
     LP_CHOICES = ((1, 'LP+'), (2, 'LP'), (3, '모름'))
 
-    name = models.CharField('이름', max_length=20, null=True, blank=True, help_text='성명')
-    birthdate = models.DateField('생년월일', null=True, blank=True, help_text='생년월일')
+    name = EncryptedCharField('이름', max_length=20, null=True, blank=True, help_text='성명')
+    birthdate = EncryptedDateField('생년월일', null=True, blank=True, help_text='생년월일')
     sex = models.IntegerField('성별', choices=SEX_CHOICES, null=True, blank=True, help_text='성별')
-    address = models.TextField('주소', null=True, blank=True, help_text='도/시')
+    address = EncryptedTextField('주소', null=True, blank=True, help_text='도/시')
     age = models.PositiveIntegerField('나이', null=True, blank=True, help_text='나이')
 
     od_os = models.IntegerField('구분', choices=OD_OS_CHOICES, null=True, blank=True, help_text='OD/OS')

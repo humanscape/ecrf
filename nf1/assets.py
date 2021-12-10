@@ -52,7 +52,6 @@ SUFFIX={
 
 CALCULATE_AGE_FIELDS={
     'crf': {
-        'encrypt_age': 'encrypt_birth_year_and_month', 
         'age': 'birth_year_and_month', 
         'age_at_dx': 'date_at_dx',
         'age_at_evaluation': 'date_at_evaluation', 
