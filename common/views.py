@@ -3,7 +3,8 @@ from django.apps import apps
 
 def ViewCsv(request, app, model, pk):
     obj = apps.get_model(app, model).objects.get(pk=int(pk))
-    file_field = [field for field in obj._meta.fields if field.get_internal_type() == 'FileField']
+    file_field = [field for field in obj._meta.fields 
+                    if field.get_internal_type() == 'FileField' and len(field.validators) > 0 and 'csv' in field.validators[0].allowed_extensions]
     context = { 
         'url': getattr(obj, file_field[0].name).url
     }
