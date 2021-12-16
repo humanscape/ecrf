@@ -195,6 +195,9 @@ class IrdHistory(models.Model):
     current_hearing_defect = models.IntegerField('현재 청각장애', choices=EXISTENCE_CHOICES, null=True, blank=True)
     current_pedigree = models.IntegerField('현재의 상태 가족력', choices=EXISTENCE_CHOICES, null=True, blank=True)
 
+    mutation_list = models.FileField('IRD 관련 유젼자 변이', upload_to="ird/mutation/%Y/%m/%d", 
+                                    null=True, blank=True, validators=[FileExtensionValidator(allowed_extensions=['csv'])])
+
     class Meta:
         verbose_name = "ird_병력청취"
         verbose_name_plural = "ird_병력청취"
