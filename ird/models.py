@@ -56,7 +56,8 @@ class IrdHistory(models.Model):
     SEX_CHOICES = ((1, 'Male'), (2, 'Female'), (3, 'All'))
     OD_OS_CHOICES = ((1, 'OD'), (2, 'OS'))
     YES_NO_DN_CHOICES = ((1, '네'), (2, '아니오'), (3, '모름'))
-    EXISTENCE_CHOICES = ((1, '유'), (2, '무'), (3, '모름'))
+    EXISTENCE_DN_CHOICES = ((1, '유'), (2, '무'), (3, '모름'))
+    EXISTENCE_CHOICES = ((0, '없음'), (1, '있음'))
     LP_CHOICES = ((1, 'LP+'), (2, 'LP'), (3, '모름'))
 
     name = EncryptedCharField('이름', max_length=20, null=True, blank=True, help_text='성명')
@@ -65,48 +66,100 @@ class IrdHistory(models.Model):
     address = EncryptedTextField('주소', null=True, blank=True, help_text='도/시')
     age = models.PositiveIntegerField('나이', null=True, blank=True, help_text='나이')
 
-    od_os = models.IntegerField('구분', choices=OD_OS_CHOICES, null=True, blank=True, help_text='OD/OS')
-    sph = models.DecimalField('ARK_SPH', max_digits=10, decimal_places=2, null=True, blank=True, help_text='원/근시')
-    cyl = models.DecimalField('ARK_CYL', max_digits=10, decimal_places=2, null=True, blank=True, help_text='난시')
-    km = models.DecimalField('ARK_KM', max_digits=10, decimal_places=2, null=True, blank=True, help_text='각막난시')
-    k_cyl = models.DecimalField('ARK_K(Cyl)', max_digits=10, decimal_places=2, null=True, blank=True, help_text='각막난시량')
-    k_axis = models.PositiveIntegerField('ARK_K(Axis)', null=True, blank=True, help_text='각막난시축')
-    udva = models.DecimalField('UDVA', max_digits=10, decimal_places=1, null=True, blank=True, help_text='원거리나안시력')
-    unva = models.DecimalField('UNVA', max_digits=10, decimal_places=1, null=True, blank=True, help_text='근거리나안시력')
-    cdva = models.DecimalField('CDVA', max_digits=10, decimal_places=1, null=True, blank=True, help_text='원거리교정시력')
-    cnva = models.DecimalField('CNVA', max_digits=10, decimal_places=1, null=True, blank=True, help_text='근거리교정시력')
-    iop = models.DecimalField('IOP', max_digits=10, decimal_places=1, null=True, blank=True, help_text='안압')
-    cst = models.PositiveIntegerField('HOCT_CST', null=True, blank=True, help_text='중심망막 두께')
-    vfi = models.PositiveIntegerField('VF_VFI', null=True, blank=True, help_text='중심시야 대비감도')
+    sph_od = models.DecimalField('ARK_SPH OD', max_digits=10, decimal_places=2, null=True, blank=True, help_text='원/근시')
+    cyl_od = models.DecimalField('ARK_CYL OD', max_digits=10, decimal_places=2, null=True, blank=True, help_text='난시')
+    km_od = models.DecimalField('ARK_KM OD', max_digits=10, decimal_places=2, null=True, blank=True, help_text='각막난시')
+    k_cyl_od = models.DecimalField('ARK_K(Cyl) OD', max_digits=10, decimal_places=2, null=True, blank=True, help_text='각막난시량')
+    k_axis_od = models.PositiveIntegerField('ARK_K(Axis) OD', null=True, blank=True, help_text='각막난시축')
+    udva_od = models.DecimalField('UDVA OD', max_digits=10, decimal_places=1, null=True, blank=True, help_text='원거리나안시력')
+    unva_od = models.DecimalField('UNVA OD', max_digits=10, decimal_places=1, null=True, blank=True, help_text='근거리나안시력')
+    cdva_od = models.DecimalField('CDVA OD', max_digits=10, decimal_places=1, null=True, blank=True, help_text='원거리교정시력')
+    cnva_od = models.DecimalField('CNVA OD', max_digits=10, decimal_places=1, null=True, blank=True, help_text='근거리교정시력')
+    iop_od = models.DecimalField('IOP OD', max_digits=10, decimal_places=1, null=True, blank=True, help_text='안압')
+    cst_od = models.PositiveIntegerField('HOCT_CST OD', null=True, blank=True, help_text='중심망막 두께')
+    vfi_od_full = models.PositiveIntegerField('VF_VFI_full OD', null=True, blank=True, help_text='중심시야 대비감도 전체')
+    vfi_od_part = models.PositiveIntegerField('VF_VFI_part OD', null=True, blank=True, help_text='중심시야 대비감도 부분')
 
-    cones_a = models.DecimalField('ERG_Cones_a', max_digits=10, decimal_places=1, null=True, blank=True,
+    cones_a_od = models.DecimalField('ERG_Cones_a OD', max_digits=10, decimal_places=1, null=True, blank=True,
                                   help_text='망막전위도검사')
-    cones_b = models.DecimalField('ERG_Cones_b', max_digits=10, decimal_places=1, null=True, blank=True,
+    cones_b_od = models.DecimalField('ERG_Cones_b OD', max_digits=10, decimal_places=1, null=True, blank=True,
                                   help_text='망막전위도검사')
-    flicker = models.DecimalField('ERG_Flicker', max_digits=10, decimal_places=1, null=True, blank=True,
+    flicker_od = models.DecimalField('ERG_Flicker OD', max_digits=10, decimal_places=1, null=True, blank=True,
                                   help_text='망막전위도검사')
-    pattern_n35_mono = models.DecimalField('ERG_Pattern_n35_mono', max_digits=10, decimal_places=1, null=True,
+    pattern_n35_mono_od = models.DecimalField('ERG_Pattern_n35_mono OD', max_digits=10, decimal_places=1, null=True,
                                            blank=True, help_text='망막전위도검사')
-    pattern_p50_mono = models.DecimalField('ERG_Pattern_p50_mono', max_digits=10, decimal_places=1, null=True,
+    pattern_p50_mono_od = models.DecimalField('ERG_Pattern_p50_mono OD', max_digits=10, decimal_places=1, null=True,
                                            blank=True, help_text='망막전위도검사')
-    pattern_n95_mono = models.DecimalField('ERG_Pattern_n95_mono', max_digits=10, decimal_places=1, null=True,
+    pattern_n95_mono_od = models.DecimalField('ERG_Pattern_n95_mono OD', max_digits=10, decimal_places=1, null=True,
                                            blank=True, help_text='망막전위도검사')
-    pattern_n35_bi = models.DecimalField('ERG_Pattern_n35_bi', max_digits=10, decimal_places=1, null=True, blank=True,
+    pattern_n35_bi_od = models.DecimalField('ERG_Pattern_n35_bi OD', max_digits=10, decimal_places=1, null=True, blank=True,
                                          help_text='망막전위도검사')
-    pattern_p50_bi = models.DecimalField('ERG_Pattern_p50_bi', max_digits=10, decimal_places=1, null=True, blank=True,
+    pattern_p50_bi_od = models.DecimalField('ERG_Pattern_p50_bi OD', max_digits=10, decimal_places=1, null=True, blank=True,
                                          help_text='망막전위도검사')
-    pattern_n95_bi = models.DecimalField('ERG_Pattern_n95_bi', max_digits=10, decimal_places=1, null=True, blank=True,
+    pattern_n95_bi_od = models.DecimalField('ERG_Pattern_n95_bi OD', max_digits=10, decimal_places=1, null=True, blank=True,
                                          help_text='망막전위도검사')
-    rods_a = models.DecimalField('ERG_Rods_a', max_digits=10, decimal_places=1, null=True, blank=True,
+    rods_a_od = models.DecimalField('ERG_Rods_a OD', max_digits=10, decimal_places=1, null=True, blank=True,
                                  help_text='망막전위도검사')
-    rods_b = models.DecimalField('ERG_Rods_b', max_digits=10, decimal_places=1, null=True, blank=True,
+    rods_b_od = models.DecimalField('ERG_Rods_b OD', max_digits=10, decimal_places=1, null=True, blank=True,
                                  help_text='망막전위도검사')
-    maximal_a = models.DecimalField('ERG_Maximal_a', max_digits=10, decimal_places=1, null=True, blank=True,
+    maximal_a_od = models.DecimalField('ERG_Maximal_a OD', max_digits=10, decimal_places=1, null=True, blank=True,
                                     help_text='망막전위도검사')
-    maximal_b = models.DecimalField('ERG_Maximal_b', max_digits=10, decimal_places=1, null=True, blank=True,
+    maximal_b_od = models.DecimalField('ERG_Maximal_b OD', max_digits=10, decimal_places=1, null=True, blank=True,
                                     help_text='망막전위도검사')
-    maximal_c = models.DecimalField('ERG_Maximal_c', max_digits=10, decimal_places=1, null=True, blank=True,
+    maximal_c_od = models.DecimalField('ERG_Maximal_c OD', max_digits=10, decimal_places=1, null=True, blank=True,
                                     help_text='망막전위도검사')
+    cystoid_macular_edema_od = models.IntegerField('CME OD', choices=EXISTENCE_CHOICES, null=True, blank=True, help_text='황반 부음')
+    sector_rp_od = models.IntegerField('sector_RP OD', choices=EXISTENCE_CHOICES, null=True, blank=True, help_text='부채형 RP')
+    retinitis_punctata_albescens_od = models.IntegerField('retinitis_punctata_albescens OD', choices=EXISTENCE_CHOICES, null=True, blank=True, help_text='백점상망막염')
+
+    sph_os = models.DecimalField('ARK_SPH OS', max_digits=10, decimal_places=2, null=True, blank=True, help_text='원/근시')
+    cyl_os = models.DecimalField('ARK_CYL OS', max_digits=10, decimal_places=2, null=True, blank=True, help_text='난시')
+    km_os = models.DecimalField('ARK_KM OS', max_digits=10, decimal_places=2, null=True, blank=True, help_text='각막난시')
+    k_cyl_os = models.DecimalField('ARK_K(Cyl) OS', max_digits=10, decimal_places=2, null=True, blank=True, help_text='각막난시량')
+    k_axis_os = models.PositiveIntegerField('ARK_K(Axis) OS', null=True, blank=True, help_text='각막난시축')
+    udva_os = models.DecimalField('UDVA OS', max_digits=10, decimal_places=1, null=True, blank=True, help_text='원거리나안시력')
+    unva_os = models.DecimalField('UNVA OS', max_digits=10, decimal_places=1, null=True, blank=True, help_text='근거리나안시력')
+    cdva_os = models.DecimalField('CDVA OS', max_digits=10, decimal_places=1, null=True, blank=True, help_text='원거리교정시력')
+    cnva_os = models.DecimalField('CNVA OS', max_digits=10, decimal_places=1, null=True, blank=True, help_text='근거리교정시력')
+    iop_os = models.DecimalField('IOP OS', max_digits=10, decimal_places=1, null=True, blank=True, help_text='안압')
+    cst_os = models.PositiveIntegerField('HOCT_CST OS', null=True, blank=True, help_text='중심망막 두께')
+    vfi_os_full = models.PositiveIntegerField('VF_VFI_full OS', null=True, blank=True, help_text='중심시야 대비감도 전체')
+    vfi_os_part = models.PositiveIntegerField('VF_VFI_part OS', null=True, blank=True, help_text='중심시야 대비감도 부분')
+
+    cones_a_os = models.DecimalField('ERG_Cones_a OS', max_digits=10, decimal_places=1, null=True, blank=True,
+                                  help_text='망막전위도검사')
+    cones_b_os = models.DecimalField('ERG_Cones_b OS', max_digits=10, decimal_places=1, null=True, blank=True,
+                                  help_text='망막전위도검사')
+    flicker_os = models.DecimalField('ERG_Flicker OS', max_digits=10, decimal_places=1, null=True, blank=True,
+                                  help_text='망막전위도검사')
+    pattern_n35_mono_os = models.DecimalField('ERG_Pattern_n35_mono OS', max_digits=10, decimal_places=1, null=True,
+                                           blank=True, help_text='망막전위도검사')
+    pattern_p50_mono_os = models.DecimalField('ERG_Pattern_p50_mono OS', max_digits=10, decimal_places=1, null=True,
+                                           blank=True, help_text='망막전위도검사')
+    pattern_n95_mono_os = models.DecimalField('ERG_Pattern_n95_mono OS', max_digits=10, decimal_places=1, null=True,
+                                           blank=True, help_text='망막전위도검사')
+    pattern_n35_bi_os = models.DecimalField('ERG_Pattern_n35_bi OS', max_digits=10, decimal_places=1, null=True, blank=True,
+                                         help_text='망막전위도검사')
+    pattern_p50_bi_os = models.DecimalField('ERG_Pattern_p50_bi OS', max_digits=10, decimal_places=1, null=True, blank=True,
+                                         help_text='망막전위도검사')
+    pattern_n95_bi_os = models.DecimalField('ERG_Pattern_n95_bi OS', max_digits=10, decimal_places=1, null=True, blank=True,
+                                         help_text='망막전위도검사')
+    rods_a_os = models.DecimalField('ERG_Rods_a OS', max_digits=10, decimal_places=1, null=True, blank=True,
+                                 help_text='망막전위도검사')
+    rods_b_os = models.DecimalField('ERG_Rods_b OS', max_digits=10, decimal_places=1, null=True, blank=True,
+                                 help_text='망막전위도검사')
+    maximal_a_os = models.DecimalField('ERG_Maximal_a OS', max_digits=10, decimal_places=1, null=True, blank=True,
+                                    help_text='망막전위도검사')
+    maximal_b_os = models.DecimalField('ERG_Maximal_b OS', max_digits=10, decimal_places=1, null=True, blank=True,
+                                    help_text='망막전위도검사')
+    maximal_c_os = models.DecimalField('ERG_Maximal_c OS', max_digits=10, decimal_places=1, null=True, blank=True,
+                                    help_text='망막전위도검사')
+    cystoid_macular_edema_os = models.IntegerField('CME OS', choices=EXISTENCE_CHOICES, null=True, blank=True, help_text='황반 부음')
+    sector_rp_os = models.IntegerField('sector_RP OS', choices=EXISTENCE_CHOICES, null=True, blank=True, help_text='부채형 RP')
+    retinitis_punctata_albescens_os = models.IntegerField('retinitis_punctata_albescens OS', choices=EXISTENCE_CHOICES, null=True, blank=True, help_text='백점상망막염')
+
+    case_history = models.ImageField('실퇴본_병력청취', upload_to="ird/history/%Y/%m/%d", null=True, blank=True, help_text='실퇴본에서 조사한 병력 청취 기록입니다.')
+    job = models.CharField('직업', max_length=255, null=True, blank=True, help_text='어떤 일을 하고 계신가요?')
 
     first_symptom_age = models.PositiveIntegerField('첫 증상 나이', null=True, blank=True,
                                                     help_text='처음 눈에 증상이 나타난 나이는 언제인가요?')
@@ -160,11 +213,11 @@ class IrdHistory(models.Model):
     best_va_rt = models.DecimalField('가장 좋았을때 시력 우', max_digits=10, decimal_places=2, null=True, blank=True)
     best_vfi_lt = models.PositiveIntegerField('가장 좋았을때 시야 좌', null=True, blank=True)
     best_vfi_rt = models.PositiveIntegerField('가장 좋았을때 시야 우', null=True, blank=True)
-    best_night_blindness = models.IntegerField('가장 좋았을때 야맹증', choices=EXISTENCE_CHOICES, null=True, blank=True)
-    best_photopsia = models.IntegerField('가장 좋았을때 눈부심', choices=EXISTENCE_CHOICES, null=True, blank=True)
-    best_cataract = models.IntegerField('가장 좋았을때 백내장', choices=EXISTENCE_CHOICES, null=True, blank=True)
-    best_hearing_defect = models.IntegerField('가장 좋았을때 청각장애', choices=EXISTENCE_CHOICES, null=True, blank=True)
-    best_pedigree = models.IntegerField('가장 좋았을때 가족력', choices=EXISTENCE_CHOICES, null=True, blank=True)
+    best_night_blindness = models.IntegerField('가장 좋았을때 야맹증', choices=EXISTENCE_DN_CHOICES, null=True, blank=True)
+    best_photopsia = models.IntegerField('가장 좋았을때 눈부심', choices=EXISTENCE_DN_CHOICES, null=True, blank=True)
+    best_cataract = models.IntegerField('가장 좋았을때 백내장', choices=EXISTENCE_DN_CHOICES, null=True, blank=True)
+    best_hearing_defect = models.IntegerField('가장 좋았을때 청각장애', choices=EXISTENCE_DN_CHOICES, null=True, blank=True)
+    best_pedigree = models.IntegerField('가장 좋았을때 가족력', choices=EXISTENCE_DN_CHOICES, null=True, blank=True)
     first_year = models.PositiveIntegerField('최초 진단시 년도', null=True, blank=True)
     first_age = models.PositiveIntegerField('최초_진단시 나이', null=True, blank=True)
     first_va = models.IntegerField('최초 진단시 시력측정 가능 여부', choices=YES_NO_DN_CHOICES, null=True, blank=True)
@@ -174,11 +227,11 @@ class IrdHistory(models.Model):
     first_va_rt = models.TextField('최초 진단시 시력 우', null=True, blank=True)
     first_vfi_lt = models.PositiveIntegerField('최초 진단시 시야 좌', null=True, blank=True)
     first_vfi_rt = models.PositiveIntegerField('최초 진단시 시야 우', null=True, blank=True)
-    first_night_blindness = models.IntegerField('최초 진단시 야맹증', choices=EXISTENCE_CHOICES, null=True, blank=True)
-    first_photopsia = models.IntegerField('최초 진단시 눈부심', choices=EXISTENCE_CHOICES, null=True, blank=True)
-    first_cataract = models.IntegerField('최초 진단시 백내장', choices=EXISTENCE_CHOICES, null=True, blank=True)
-    first_hearing_defect = models.IntegerField('최초 진단시 청각장애', choices=EXISTENCE_CHOICES, null=True, blank=True)
-    first_pedigree = models.IntegerField('최초 진단시 가족력', choices=EXISTENCE_CHOICES, null=True, blank=True)
+    first_night_blindness = models.IntegerField('최초 진단시 야맹증', choices=EXISTENCE_DN_CHOICES, null=True, blank=True)
+    first_photopsia = models.IntegerField('최초 진단시 눈부심', choices=EXISTENCE_DN_CHOICES, null=True, blank=True)
+    first_cataract = models.IntegerField('최초 진단시 백내장', choices=EXISTENCE_DN_CHOICES, null=True, blank=True)
+    first_hearing_defect = models.IntegerField('최초 진단시 청각장애', choices=EXISTENCE_DN_CHOICES, null=True, blank=True)
+    first_pedigree = models.IntegerField('최초 진단시 가족력', choices=EXISTENCE_DN_CHOICES, null=True, blank=True)
 
     current_year = models.PositiveIntegerField('현재 년도', null=True, blank=True)
     current_age = models.PositiveIntegerField('현재 나이', null=True, blank=True)
@@ -189,11 +242,11 @@ class IrdHistory(models.Model):
     current_va_rt = models.TextField('현재 시력 우', null=True, blank=True)
     current_vfi_lt = models.PositiveIntegerField('현재 시야 좌', null=True, blank=True)
     current_vfi_rt = models.PositiveIntegerField('현재 시야 우', null=True, blank=True)
-    current_night_blindness = models.IntegerField('현재_야맹증', choices=EXISTENCE_CHOICES, null=True, blank=True)
-    current_photopsia = models.IntegerField('현재 눈부심', choices=EXISTENCE_CHOICES, null=True, blank=True)
-    current_cataract = models.IntegerField('현재 백내장', choices=EXISTENCE_CHOICES, null=True, blank=True)
-    current_hearing_defect = models.IntegerField('현재 청각장애', choices=EXISTENCE_CHOICES, null=True, blank=True)
-    current_pedigree = models.IntegerField('현재의 상태 가족력', choices=EXISTENCE_CHOICES, null=True, blank=True)
+    current_night_blindness = models.IntegerField('현재_야맹증', choices=EXISTENCE_DN_CHOICES, null=True, blank=True)
+    current_photopsia = models.IntegerField('현재 눈부심', choices=EXISTENCE_DN_CHOICES, null=True, blank=True)
+    current_cataract = models.IntegerField('현재 백내장', choices=EXISTENCE_DN_CHOICES, null=True, blank=True)
+    current_hearing_defect = models.IntegerField('현재 청각장애', choices=EXISTENCE_DN_CHOICES, null=True, blank=True)
+    current_pedigree = models.IntegerField('현재의 상태 가족력', choices=EXISTENCE_DN_CHOICES, null=True, blank=True)
 
     mutation_list = models.FileField('IRD 관련 유젼자 변이', upload_to="ird/mutation/%Y/%m/%d", 
                                     null=True, blank=True, validators=[FileExtensionValidator(allowed_extensions=['csv'])])

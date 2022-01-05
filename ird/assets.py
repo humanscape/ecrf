@@ -3,7 +3,9 @@ RADIO_FIELDS={
         'sex', 'sortation',
     ),
     'ird_history': (
-        'sex', 'od_os', 'familyhistory_diagnosis1', 'familyhistory_diagnosis2', 'other_diagnosis',
+        'sex', 'cystoid_macular_edema_od', 'sector_rp_od', 'retinitis_punctata_albescens_od',
+        'cystoid_macular_edema_os', 'sector_rp_os', 'retinitis_punctata_albescens_os',
+        'familyhistory_diagnosis1', 'familyhistory_diagnosis2', 'other_diagnosis',
         'night_blindness', 'peripheral_vision', 'central_vision', 'read', 'eyeglasses_lens', 
         'object_recognition', 'cataract', 'glaucoma', 'retinal_detachment', 'dark_adaptation', 
         'photopsia', 'color_sense', 'best_va', 'best_lp_lt', 'best_lp_rt', 'best_night_blindness',
