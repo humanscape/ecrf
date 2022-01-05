@@ -14,7 +14,7 @@ et-xmlfile==1.1.0
 jmespath==0.10.0
 MarkupPy==1.14
 odfpy==1.4.1
-openpyxl==3.0.8
+openpyxl==3.0.9
 Pillow==8.3.2
 psycopg2==2.9.1
 python-dateutil==2.8.2
