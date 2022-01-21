@@ -34,17 +34,20 @@ function calculateAge(target_date, is_birth, birthday) {
     let day = date.getDate();
     if (month < 10) month = '0' + month;
     if (day < 10) day = '0' + day;
+    const monthDay = month + day;
     
     // calculate age
     if (is_birth){
         target_date = target_date.replace('-', '').replace('-', '');
         const calculated_dayy = target_date.substr(0, 4);
-        age = year - calculated_dayy;
+        const calculated_daymd = target_date.substr(4, 4);
+        age = monthDay < calculated_daymd ? year - calculated_dayy - 1 : year - calculated_dayy;
     } else {
         if(birthday != ''){
             birthday = birthday.replace('-', '').replace('-', '');
             const birthdayy = birthday.substr(0, 4);
-            age = year - birthdayy;
+            const birthdaymd = birthday.substr(4, 4);
+            age = monthDay < birthdaymd ? year - birthdayy - 1 : year - birthdayy;
         }
     }
     return age;
