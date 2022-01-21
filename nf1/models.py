@@ -7,16 +7,10 @@ from django.core.validators import FileExtensionValidator
 from encrypted_fields.fields import *
 
 from .assets import CALCULATE_AGE_FIELDS
-
-def calculate_age(to_date, from_date):
-    if to_date is None or from_date is None:
-        return None
-    return to_date.year - from_date.year - ((to_date.month, to_date.day) < (from_date.month, from_date.day))
+from common.utils import calculate_age
 
 
 class Crf(models.Model):
-    date_at_evaluation_diagnosis = models.DateField('Date at evaluation (Diagnosis)', null=True, blank=True,
-                                                    help_text='진단을 받은 날짜')
     patient_number = models.PositiveIntegerField('Patient No.', null=True, blank=True, help_text='환자 번호')
     name = EncryptedCharField('Name', max_length=200, null=True, blank=True, help_text='환자 이름')
     case_no = models.PositiveIntegerField('Case No.', null=True, blank=True, help_text='사건/차트 번호')

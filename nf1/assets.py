@@ -1,6 +1,6 @@
 DISPLAY_FIELDS={
     'crf': (
-        'date_at_evaluation_diagnosis', 'patient_number', 'name', 'case_no', 'family_no', 'family_hx',
+        'patient_number', 'name', 'case_no', 'family_no', 'family_hx',
         'sex', 'birth_year_and_month', 'age','date_at_dx', 'age_at_dx', 'date_at_evaluation',
         'age_at_evaluation', 'nf1_mutation', 'dna', 'protein', 'domain', 'mutation_type',
         'inframe_deletion_or_insertion', 'nf1_haploinsufficiency_type', 'novel_mutation',

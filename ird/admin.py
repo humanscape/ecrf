@@ -28,14 +28,14 @@ class IrdHistoryAdmin(admin.ModelAdmin):
     form =IrdHistoryForm
 
     list_display = (
-        'id',
-        'name',
-        'birthdate',
+        'subject_id',
+        'register_date',
     )
     list_display_links = list_display
     list_filter = list_display
 
     readonly_fields = (
+        'age',
         'mutation_file_link', 
     )
 
@@ -51,3 +51,9 @@ class IrdHistoryAdmin(admin.ModelAdmin):
     def mutation_file_link(self, obj):
         return generate_link(obj)
     mutation_file_link.short_description = '파일 조회 링크'
+
+    class Media:
+        js = [
+            '//ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js',
+            'js/calculateAge.js'
+        ]

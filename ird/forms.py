@@ -1,6 +1,6 @@
 from django import forms
 from .models import Ird, IrdHistory
-from .assets import RADIO_FIELDS
+from .assets import RADIO_FIELDS, CALCULATE_AGE_FIELDS
 
 
 class IrdForm(forms.ModelForm):
@@ -29,3 +29,10 @@ class IrdHistoryForm(forms.ModelForm):
         for field in self.fields:
             if self.fields[field].required is False and field in RADIO_FIELDS['ird_history']:
                 self.fields[field].choices = tuple([(u'', '-')] + list(self.fields[field].choices)[1:])
+
+            # caculate age field custom
+            for key, value in CALCULATE_AGE_FIELDS['ird_history'].items():
+                if field == value:
+                    self.fields[field].widget.attrs.update({'target': key})
+                    if value != 'birthdate':
+                        self.fields[field].widget.attrs.update({'isyear': 'true'})
