@@ -12,24 +12,30 @@ from common.utils import calculate_age
 
 class Crf(models.Model):
     patient_number = models.PositiveIntegerField('Patient No.', null=True, blank=True, help_text='환자 번호')
-    name = EncryptedCharField('Name', max_length=200, null=True, blank=True, help_text='환자 이름')
-    case_no = models.PositiveIntegerField('Case No.', null=True, blank=True, help_text='사건/차트 번호')
-    family_no = models.PositiveIntegerField('Family No.', null=True, blank=True, help_text='가족 번호')
-    family_hx = models.IntegerField('Family Hx.', choices=[(i, i) for i in range(3)], null=True, blank=True,
-                                    help_text='가족 병력<br/>0: 없음<br/>1: 있음<br/>2: 모름')
-    sex = models.IntegerField('Sex', choices=[(i, i) for i in range(4)], null=True, blank=True,
-                              help_text='성별<br/>0 : 남자<br/>1 : 여자<br/>2 : 전부<br/>3 : 모름')
     birth_year_and_month = EncryptedDateField('Birth year and month', null=True, blank=True,
-                                            help_text='생년월일<br/>입력시 오늘 날짜 기준으로 나이가 입력됩니다.')
+                                              help_text='생년월일<br/>입력시 오늘 날짜 기준으로 나이가 입력됩니다.')
     # AUTO
     age = models.IntegerField('Age', null=True, blank=True, help_text='나이')
+
     date_at_dx = models.DateField('Date at Dx.', null=True, blank=True, help_text='진단 받은 날짜<br/>입력시 진단시의 나이가 입력됩니다.')
+
     # AUTO
     age_at_dx = models.IntegerField('Age at Dx.', null=True, blank=True, help_text='진단시 나이')
+
+    sex = models.IntegerField('Sex', choices=[(i, i) for i in range(4)], null=True, blank=True,
+                              help_text='성별<br/>0 : 남자<br/>1 : 여자<br/>2 : 전부<br/>3 : 모름')
+
+    family_hx = models.IntegerField('Family Hx.', choices=[(i, i) for i in range(3)], null=True, blank=True,
+                                    help_text='가족 병력<br/>0: 없음<br/>1: 있음<br/>2: 모름')
+    familyhistory_diagnosis = models.IntegerField('familyhistory_diagnosis', choices=[(i, i) for i in range(4)], null=True, blank=True,
+                                    help_text='0: 부<br/>1: 모<br/>2: 형제<br/>3: 자녀')
+
+
     date_at_evaluation = models.DateField('Date at evaluation ', null=True, blank=True,
                                           help_text='유전자 검사 날짜<br/>입력시 유전자 검사시의 나이가 입력됩니다.')
     # AUTO
     age_at_evaluation = models.IntegerField('Age at evaluation', null=True, blank=True, help_text='유전자 검사시 나이')
+
     nf1_mutation = models.IntegerField('NF1 mutation', choices=[(i, i) for i in range(2)], null=True, blank=True,
                                        help_text='NF1 돌연변이<br/>0 : 없음<br/>1 : 있음')
     dna = models.CharField('DNA', max_length=200, null=True, blank=True, help_text='유전자 변이 (DNA)<br/>예제 c.7126G>C')
@@ -81,21 +87,30 @@ class Crf(models.Model):
                                        help_text='고혈압 (임상학적 평가)<br/>0 : 없음<br/>1 : 있음<br/>2 : 모름')
     cardiac_arrhythmia = models.IntegerField('Cardiac arrhythmia', choices=[(i, i) for i in range(3)], null=True,
                                              blank=True, help_text='심장 부정맥 (임상학적 평가)<br/>0 : 없음<br/>1 : 있음<br/>2 : 모름')
-    age_at_brain_mr_findings = models.TextField('Age at brain MR Findings', null=True, blank=True,
+    arrhythmia_treatment = models.TextField('Arrhythmia treatment', null=True, blank=True,
                                                 help_text='부정맥 치료에 사용된 의료 시술/기술')
+
     cardiac_myopathy = models.IntegerField('Cardiac myopathy', choices=[(i, i) for i in range(3)], null=True,
                                            blank=True, help_text='심장 근병증 (영상학적 소견)<br/>0 : 없음<br/>1 : 있음<br/>2 : 모름')
     cardiac_myopathy_findings = models.TextField('Cardiac myopathy Findings', null=True, blank=True, help_text='이상 소견')
-    oh_25_vitamin_d = models.DecimalField('25-OH vitamin D', max_digits=10, decimal_places=2, null=True,
+
+    oh_25_vitamin_d = models.IntegerField('25-OH vitamin D 시행여부', choices=[(i, i) for i in range(2)], null=True,
+                                          blank=True, help_text='25-하이드록시 비타민 D 검사 시행 여부<br/>0 : 미시행<br/>1 : 시행')
+    oh_25_vitamin_d_1 = models.DecimalField('25-OH vitamin D', max_digits=10, decimal_places=2, null=True,
                                           blank=True, help_text='25-하이드록시 비타민 D 검사 수치<br/>단위 ng/mL')
+
     hearing_difficulty = models.IntegerField('Hearing difficulty', choices=[(i, i) for i in range(3)], null=True,
                                              blank=True, help_text='청력 장애 (신경학적 판단)<br/>0 : 없음<br/>1 : 있음<br/>2 : 모름')
     other = models.TextField('Other', null=True, blank=True, help_text='기타')
+
+    brain_mr = models.IntegerField('Brain MR 시행 여부', choices=[(i, i) for i in range(2)], null=True,
+                                           blank=True, help_text='Brain MR 시행 여부<br/>0 : 미시행<br/>1 : 시행')
     brain_mr_date = models.DateField('Date at Brain MR ', null=True, blank=True,
                                      help_text='뇌 MR 촬영 날짜<br/>입력시 뇌 MR 촬영시 나이가 입력됩니다.')
     # AUTO
     age_at_brain_mr = models.IntegerField('Age at Brain MR', null=True, blank=True, help_text='뇌 MR 촬영시 나이')
     mr_findings = models.TextField('Brain MR Findings', null=True, blank=True, help_text='뇌 MR 스캔 결과 기술 (영상학적 판단)')
+
     fasi = models.IntegerField('FASI (focal areas of signal intensity)', choices=[(i, i) for i in range(3)], null=True,
                                blank=True,
                                help_text='고음영 병변 (unidentified bright objects, UBO; 임상적 판단)<br/>0 : 없음<br/>1 : 있음<br/>2 : 모름')
@@ -105,12 +120,20 @@ class Crf(models.Model):
     vascular_anomaly = models.IntegerField('Vascular anomaly', choices=[(i, i) for i in range(3)], null=True,
                                            blank=True,
                                            help_text='혈관 이상 (영상학적/흉부외과적 진단)<br/>0 : 없음<br/>1 : 있음<br/>2 : 모름')
+
+    spine_mr = models.IntegerField('Spine MR 시행여부', choices=[(i, i) for i in range(2)], null=True,
+                                   blank=True, help_text='척추 MR 시행 여부<br/>0 : 미시행<br/>1 : 시행')
+
     spine_mr_date = models.DateField('Data at Spine MR ', null=True, blank=True,
                                      help_text='척추 MR 스캔 촬영 날짜<br/>입력시 척추 MR 촬영시 나이가 입력됩니다.')
     # AUTO
     age_at_spine_mr = models.IntegerField('Age at Spine MR', null=True, blank=True, help_text='척추 MR 촬영시 나이')
     age_at_spine_mr_findings = models.TextField('Spine MR Findings', null=True, blank=True,
                                                 help_text='척추 MR 스캔 결과 기술 (영상학적 판단)')
+
+    whole_body_mr = models.IntegerField('Whole body MR', choices=[(i, i) for i in range(2)], null=True,
+                                   blank=True, help_text='Whole body MR 시행 여부<br/>0 : 미시행<br/>1 : 시행')
+
     whole_body_mr_date = models.DateField('Data at Whole body MR ', null=True, blank=True,
                                           help_text='전신 MR 촬영 날짜<br/>입력시 전신 MR 촬영시 나이가 입력됩니다.')
     # AUTO
@@ -143,8 +166,12 @@ class Crf(models.Model):
                                                                   help_text='악성 말초신경 수초 종양<br/>0 : 없음<br/>1 : 있음<br/>2 : 모름')
     moyamoya_disease = models.IntegerField('Moyamoya disease', choices=[(i, i) for i in range(3)], null=True,
                                            blank=True, help_text='모야모야 진단 (합병증)<br/>0 : 없음<br/>1 : 있음<br/>2 : 모름')
-    osteopenia = models.IntegerField('Osteopenia', choices=[(i, i) for i in range(3)], null=True, blank=True,
-                                     help_text='골감소증 (정형외과적 판단)<br/>0 : 없음<br/>1 : 있음<br/>2 : 모름')
+
+    bmd = models.IntegerField('BMD 시행여부', choices=[(i, i) for i in range(2)], null=True, blank=True,
+                                               help_text='골밀도<br/>0 : 미시행<br/>1 : 시행')
+    bmd_1 = models.IntegerField('BMD', choices=[(i, i) for i in range(3)], null=True, blank=True,
+                                     help_text='골밀도(정형외과적 판단)<br/>0 : 정상<br/>1 : 골감소증<br/>2 : 골다공증')
+
     spine_z_score = models.DecimalField('Spine (z score)', max_digits=10, decimal_places=2, null=True, blank=True,
                                         help_text='척추 (통계학적 수치)')
     femur_z_score = models.DecimalField('Femur (z score)', max_digits=10, decimal_places=2, null=True, blank=True,
@@ -163,8 +190,8 @@ class Crf(models.Model):
                                         help_text='경막 확장증<br/>0 : 없음<br/>1 : 있음<br/>2 : 모름')
     scoliosis = models.IntegerField('Scoliosis', choices=[(i, i) for i in range(3)], null=True, blank=True,
                                     help_text='척추측만증 (신체적 평가)<br/>0 : 없음<br/>1 : 있음<br/>2 : 모름')
-    breast_examination = models.IntegerField('Breast examination', choices=[(i, i) for i in range(3)], null=True,
-                                             blank=True, help_text='유방 초음파 검사<br/>0 : 없음<br/>1 : 있음<br/>2 : 모름')
+    breast_examination = models.IntegerField('Breast examination', choices=[(i, i) for i in range(2)], null=True,
+                                             blank=True, help_text='유방 초음파 검사<br/>0 : 미시행<br/>1 : 시행')
     date_at_breast_usg = models.DateField('Date at breast USG', null=True, blank=True,
                                           help_text='유방 초음파 검사 날짜<br/>입력시 유방 초음파 검사시 나이가 입력됩니다.')
     # AUTO
