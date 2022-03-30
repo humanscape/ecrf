@@ -8,7 +8,7 @@ DISPLAY_FIELDS={
         'wide_spread_diffuse_cutaneous_neurofibroma', 'relative_macrocephaly', 'lish_nodules',
         'height_at_dx','height_sds', 'learning_difficulty', 'adhd', 'autism', 'seizure', 'hypertension',
         'cardiac_arrhythmia', 'arrhythmia_treatment', 'cardiac_myopathy', 'cardiac_myopathy_findings',
-        'oh_25_vitamin_d', 'oh_25_vitamin_d_1', 'hearing_difficulty', 'other', 'brain_mr_date', 'age_at_brain_mr',
+        'oh_25_vitamin_d', 'oh_25_vitamin_d_1', 'hearing_difficulty', 'other', 'brain_mr', 'brain_mr_date', 'age_at_brain_mr',
         'mr_findings', 'fasi', 'fasi_findings', 'optic_pathway_glioma', 'vascular_anomaly', 'spine_mr', 'spine_mr_date',
         'age_at_spine_mr', 'age_at_spine_mr_findings', 'whole_body_mr', 'whole_body_mr_date', 'age_at_whole_body_mr',
         'age_at_whole_body_mr_findings', 'plexiform_neurofibromas', 'plexiform_neurofibromas_3',
@@ -24,11 +24,11 @@ DISPLAY_FIELDS={
 
 RADIO_FIELDS={
     'crf': ( 
-        'family_hx', 'sex', 'nf1_mutation', 'domain', 'mutation_type', 'inframe_deletion_or_insertion',
+        'family_hx', 'familyhistory_diagnosis', 'sex', 'nf1_mutation', 'domain', 'mutation_type', 'inframe_deletion_or_insertion',
         'nf1_haploinsufficiency_type', 'novel_mutation', 'cafe_au_lait_spots', 'axillary_freckling', 'cutaneous_neurofibromas',
         'wide_spread_diffuse_cutaneous_neurofibroma', 'relative_macrocephaly', 'lish_nodules', 'learning_difficulty', 
         'adhd', 'autism', 'lish_nodules', 'seizure', 'hypertension', 'cardiac_arrhythmia', 'cardiac_myopathy',
-        'oh_25_vitamin_d', 'hearing_difficulty', 'fasi', 'optic_pathway_glioma', 'vascular_anomaly', 'spine_mr',
+        'oh_25_vitamin_d', 'hearing_difficulty', 'brain_mr', 'fasi', 'optic_pathway_glioma', 'vascular_anomaly', 'spine_mr',
         'whole_body_mr', 'plexiform_neurofibromas',
         'plexiform_neurofibromas_3', 'disfigurement', 'aorta_bone_disruption_malignancy', 'painful_accompanying', 'malignancy', 
         'brain_tumor', 'nerve_root_tumor', 'malignant_peripheral_nerve_sheath_tumor', 'moyamoya_disease', 'bmd', 'bmd_1',

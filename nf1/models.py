@@ -202,8 +202,8 @@ class Crf(models.Model):
                                              help_text='질환 경과  단계<br/>1 : BIRADS I<br/>2 : BIRADS II<br/>3 ; BIRADS III<br/>4 : BIRADS IV')
     breast_usg_findings = models.TextField('Breast USG Findings', null=True, blank=True,
                                            help_text='유방 검사 결과 기술 (외과학적/영상학적 판단)')
-    biopsy = models.IntegerField('Biopsy', choices=[(i, i) for i in range(3)], null=True, blank=True,
-                                 help_text='조직검사 <br/>0 : 없음<br/>1 : 있음<br/>2 : 모름')
+    biopsy = models.IntegerField('Biopsy', choices=[(i, i) for i in range(2)], null=True, blank=True,
+                                 help_text='조직검사 <br/>0 : 미시행<br/>1 : 시행')
     biopsy_findings = models.TextField('Biopsy Findings', null=True, blank=True, help_text='조직검사 결과')
     operation = models.IntegerField('Operation', choices=[(i, i) for i in range(3)], null=True, blank=True,
                                     help_text='수술 유무<br/>0 : 없음<br/>1 : 있음<br/>2 : 모름')
