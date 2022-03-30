@@ -13,7 +13,7 @@ DISPLAY_FIELDS={
         'age_at_spine_mr', 'age_at_spine_mr_findings', 'whole_body_mr', 'whole_body_mr_date', 'age_at_whole_body_mr',
         'age_at_whole_body_mr_findings', 'plexiform_neurofibromas', 'plexiform_neurofibromas_3',
         'disfigurement', 'aorta_bone_disruption_malignancy', 'painful_accompanying', 'malignancy',
-        'brain_tumor', 'nerve_root_tumor', 'malignant_peripheral_nerve_sheath_tumor', 'moyamoya_disease', 'bmd', 'bmd_1'
+        'brain_tumor', 'nerve_root_tumor', 'malignant_peripheral_nerve_sheath_tumor', 'moyamoya_disease', 'bmd', 'bmd_1',
         'spine_z_score', 'femur_z_score', 'dysplasia_of_long_bone',
         'dysplasia_of_long_bone_location', 'sphenoid_wing_dysplaisa', 'vertebral_dysplasia',
         'dural_ectasia', 'scoliosis', 'breast_examination', 'date_at_breast_usg', 'age_at_breast_usg',
@@ -28,10 +28,10 @@ RADIO_FIELDS={
         'nf1_haploinsufficiency_type', 'novel_mutation', 'cafe_au_lait_spots', 'axillary_freckling', 'cutaneous_neurofibromas',
         'wide_spread_diffuse_cutaneous_neurofibroma', 'relative_macrocephaly', 'lish_nodules', 'learning_difficulty', 
         'adhd', 'autism', 'lish_nodules', 'seizure', 'hypertension', 'cardiac_arrhythmia', 'cardiac_myopathy',
-        'oh_25_vitamin_d_1', 'hearing_difficulty', 'fasi', 'optic_pathway_glioma', 'vascular_anomaly', 'spine_mr',
+        'oh_25_vitamin_d', 'hearing_difficulty', 'fasi', 'optic_pathway_glioma', 'vascular_anomaly', 'spine_mr',
         'whole_body_mr', 'plexiform_neurofibromas',
         'plexiform_neurofibromas_3', 'disfigurement', 'aorta_bone_disruption_malignancy', 'painful_accompanying', 'malignancy', 
-        'brain_tumor', 'nerve_root_tumor', 'malignant_peripheral_nerve_sheath_tumor', 'moyamoya_disease', 'bmd', 'bmd_1'
+        'brain_tumor', 'nerve_root_tumor', 'malignant_peripheral_nerve_sheath_tumor', 'moyamoya_disease', 'bmd', 'bmd_1',
         'dysplasia_of_long_bone', 'sphenoid_wing_dysplaisa', 'vertebral_dysplasia', 'dural_ectasia', 'scoliosis', 
         'breast_examination', 'birads_i_ii_iii_iv', 'biopsy', 'operation'
     )
@@ -47,7 +47,7 @@ PREFIX={
 SUFFIX={
     'crf': {
         'height_at_dx': 'cm',
-        'oh_25_vitamin_d': 'ng/mL'
+        'oh_25_vitamin_d_1': 'ng/mL'
     }
 }
 
