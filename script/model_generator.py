@@ -1,6 +1,6 @@
 import csv
 
-f = open('nf1.csv', 'r')
+f = open('ird.csv', 'r')
 data = list(csv.reader(f))
 f.close()
 
@@ -28,13 +28,14 @@ for row in data[2:]:
         'help_text': row[2].replace("\n", "<br/>"),
         'field_type': row[3],
     }
-    if len(row[6]) > 0:
+    # print(row)
+    if len(row) > 0:
         if field['field_type'] == '이미지파일(image)' or field['field_type'] == '파일(csv)':
-            field['upload_to'] = row[6]
+            field['upload_to'] = row[5]
         elif field['field_type'] == '단어(character)' or field['field_type'] == '암호화된단어(character)':
-            field['max_length'] = int(row[6])
+            field['max_length'] = 444
         else:
-            field['choice_count'] = int(row[6]) + 1
+            field['choice_count'] = 3
     else:
         field['choice_count'] = 0
     # print(field)
