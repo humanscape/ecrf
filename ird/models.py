@@ -1,12 +1,67 @@
 from django.db import models
 from django.core.validators import FileExtensionValidator
 from datetime import datetime
-
+from django import forms
+from django.forms import SelectMultiple
 from encrypted_fields.fields import *
 from django.contrib.postgres.fields import ArrayField
 from .assets import CALCULATE_AGE_FIELDS
 from common.utils import calculate_age
+from django.core import exceptions
 
+class ArraySelectMultiple(SelectMultiple):
+
+    def value_omitted_from_data(self, data, files, name):
+        return False
+
+
+class ChoiceArrayField(ArrayField):
+    """
+    A field that allows us to store an array of choices.
+
+    Uses Django 1.9's postgres ArrayField
+    and a MultipleChoiceField for its formfield.
+
+    Usage:
+
+        choices = ChoiceArrayField(models.CharField(max_length=...,
+                                                    choices=(...,)),
+                                   default=[...])
+    """
+
+    def formfield(self, **kwargs):
+        defaults = {
+            'form_class': forms.TypedMultipleChoiceField,
+            'choices': self.base_field.choices,
+            'widget': forms.CheckboxSelectMultiple,
+
+        }
+        defaults.update(kwargs)
+
+        # Skip our parent's formfield implementation completely as we don't
+        # care for it.
+        # pylint:disable=bad-super-call
+        return super(ArrayField, self).formfield(**defaults)
+
+    def validate(self, value, model_instance):
+        if not self.editable:
+            # Skip validation for non-editable fields.
+            return
+
+        if self.choices is not None and value not in self.empty_values:
+            if set(value).issubset({option_key for option_key, _ in self.choices}):
+                return
+            raise exceptions.ValidationError(
+                self.error_messages["invalid_choice"],
+                code="invalid_choice",
+                params={"value": value},
+            )
+
+        if value is None and not self.null:
+            raise exceptions.ValidationError(self.error_messages["null"], code="null")
+
+        if not self.blank and value in self.empty_values:
+            raise exceptions.ValidationError(self.error_messages["blank"], code="blank")
 
 class Ird(models.Model):
     SEX_TYPE = ((1, 'Male'), (2, 'Female'), (3, 'All'))
@@ -214,13 +269,13 @@ class IrdHistory(models.Model):
                                                      help_text='처음 눈에 증상이 나타난 연도는 언제인가요?')
     first_symptom_reason = models.TextField('진단 계기', null=True, blank=True, help_text='어떤 계기로 진단을 받게 되었나요?')
     first_diagnosis_hospital = models.TextField('첫 진단 병원', null=True, blank=True, help_text='진단을 처음 받았던 병원은 어디인가요?')
-    best_age = models.CharField('가장 좋았을 때 시력 나이', choices=[(i, i) for i in range(3)], null=True, blank=True,
+    best_age = models.CharField('가장 좋았을 때 시력 나이', max_length=200, null=True, blank=True,
                                    help_text='시력이 가장 좋았던 때는 언제인가요?')
     best_va_lt = models.TextField('가장 좋았을 때 시력 좌', null=True, blank=True, help_text='가장 좋았던 좌측 시력은 얼마였나요?')
     best_va_rt = models.TextField('가장 좋았을 때 시력 우', null=True, blank=True, help_text='가장 좋았던 우측 시력은 얼마였나요?')
     best_vfi_lt = models.TextField('가장 좋았을 때 시야 좌', null=True, blank=True, help_text='가장 좋았던 좌측 시야는 얼마였나요?')
     best_vfi_rt = models.TextField('가장 좋았을 때 시야 우', null=True, blank=True, help_text='가장 좋았던 우측 시야는 얼마였나요?')
-    first_diagnosis_age = models.IntegerField('첫 진단 나이', choices=[(i, i) for i in range(3)], null=True, blank=True,
+    first_diagnosis_age = models.CharField('첫 진단 나이', max_length=200, null=True, blank=True,
                                               help_text='진단을 처음 받았던 때는 언제였나요?')
     first_va_lt = models.TextField('최초 진단시 시력 좌', null=True, blank=True, help_text='진단을 처음 받았던 때의 좌측 시력은 얼마였나요?')
     first_va_rt = models.TextField('최초 진단시 시력 우', null=True, blank=True, help_text='진단을 처음 받았던 때의 우측 시력은 얼마였나요?')
@@ -235,21 +290,24 @@ class IrdHistory(models.Model):
     pedigree = models.ImageField('가계도', upload_to="ird/pedigree/%Y/%m/%d", null=True, blank=True,
                                  help_text='가족 구성원이 어떻게 되시나요?')
 
-    familyhistory_diagnosis1 = ArrayField(models.IntegerField('같은 종류 진단 받은 가족', choices=FAMILY_HISTORY_CHOICES,
-                                                                     null=True, blank=True,
-                                                                     help_text='가족 중 같은 종류의 유전성 망막질환을 진단받은 사람이 있나요? 모두 선택해주세요'),
-                                          null=True, blank=True)
+    familyhistory_diagnosis1 = ChoiceArrayField(models.CharField(max_length=200, choices=FAMILY_HISTORY_CHOICES,
+                                                                     null=True, blank=True),
+                                                verbose_name='같은 종류 진단 받은 가족',
+                                                help_text='가족 중 같은 종류의 유전성 망막질환을 진단받은 사람이 있나요? 모두 선택해주세요',
+                                                null=True, blank=True)
     familyhistory_diagnosis2 = models.IntegerField('다른 종류 진단 받은 가족', choices=EXISTENCE_DN_CHOICES2, null=True,
                                                    blank=True, help_text='가족 중 다른 종류의 유전성 망막질환을 진단받은 사람이 있나요?')
-    familyhistory_diagnosis3 = ArrayField(models.IntegerField('다른 종류 진단 받은 가족 선택', choices=FAMILY_HISTORY_CHOICES,
-                                                                     null=True, blank=True,
-                                                                     help_text='가족 중 다른 종류의 유전성 망막질환을 진단받은 사람을 모두 선택해주세요'),
-                                          null=True, blank=True)
+    familyhistory_diagnosis3 = ChoiceArrayField(models.CharField(max_length=200,choices=FAMILY_HISTORY_CHOICES,
+                                                                     null=True, blank=True),
+                                                verbose_name='다른 종류 진단 받은 가족 선택',
+                                                help_text='가족 중 다른 종류의 유전성 망막질환을 진단받은 사람을 모두 선택해주세요',
+                                                null=True, blank=True)
     familyhistory_diagnosis_name = models.TextField('가족 다른 종류 진단명', null=True, blank=True,
                                                     help_text='가족 중 다른 종류의 유전성 망막질환을 진단받은 사람이 있다면, 그 질환은 무엇인가요?')
-    underlying_disease1 = ArrayField(models.IntegerField('기저질환', choices=UNDERLYING_DISEASE_CHOICES, null=True, blank=True,
-                                                         help_text='과거 앓았거나 현재 앓고 있는 질환이 있나요? 모두 선택해주세요'),
-                                     null=True, blank=True)
+    underlying_disease1 = ChoiceArrayField(models.CharField(max_length=200, choices=UNDERLYING_DISEASE_CHOICES, null=True, blank=True),
+                                           verbose_name='기저질환',
+                                           help_text='과거 앓았거나 현재 앓고 있는 질환이 있나요? 모두 선택해주세요',
+                                           null=True, blank=True)
     underlying_disease2 = models.TextField('기타 기저질환', null=True, blank=True, help_text='그외 기타 질환 적어주세요')
     drug = models.IntegerField('12주 이내 복용한 약물', choices=EXISTENCE_DN_CHOICES2, null=True, blank=True,
                                help_text='최근 12주 이내에 복용한 약물이 있나요? ')
@@ -293,18 +351,25 @@ class IrdHistory(models.Model):
                                                      help_text='청력 이상 증상이 처음 나타났던 나이를 적어주세요')
     cataract = models.IntegerField('백내장', choices=EXISTENCE_CHOICES2, null=True, blank=True,
                                    help_text='백내장을 경험한 적이 있나요? ')
-    cataract_op = ArrayField(models.IntegerField('백내장 수술', choices=EXISTENCE_CHOICES2, null=True, blank=True,
-                                      help_text='백내장 수술을 받은 적이 있나요?'), null=True, blank=True)
+    cataract_op = ChoiceArrayField(models.CharField(max_length=200, choices=EXISTENCE_CHOICES2, null=True, blank=True),
+                                   verbose_name = '백내장 수술',
+                                   help_text = '백내장 수술을 받은 적이 있나요?',
+                                   null=True, blank=True)
+
     cataract_op_history = models.TextField('백내장 수술 이력', null=True, blank=True, help_text='수술 이력을 자세히 적어주세요')
     glaucoma = models.IntegerField('녹내장', choices=EXISTENCE_CHOICES2, null=True, blank=True,
                                    help_text='녹내장을 경험한 적이 있나요?')
-    glaucoma_op = ArrayField(models.IntegerField('녹내장 수술', choices=RETINAL_CHOICES, null=True, blank=True,
-                                      help_text='녹내장 수술을 받은 적이 있나요?'), null=True, blank=True)
+    glaucoma_op = ChoiceArrayField(models.CharField(max_length=200, choices=RETINAL_CHOICES, null=True, blank=True),
+                                   verbose_name = '녹내장 수술',
+                                   help_text = '녹내장 수술을 받은 적이 있나요?',
+                                   null=True, blank=True)
     glaucoma_op_history = models.TextField('녹내장 수술 이력', null=True, blank=True, help_text='수술 이력을 자세히 적어주세요')
     retinal_detachment = models.IntegerField('망막박리', choices=EXISTENCE_CHOICES2, null=True, blank=True,
                                              help_text='망막 박리를 경험한 적이 있나요?')
-    retinal_detachment_op = ArrayField(models.IntegerField('망막박리 수술', choices=RETINAL_CHOICES, null=True, blank=True,
-                                                help_text='망막 박리 수술을 받은 적이 있나요?'), null=True, blank=True)
+    retinal_detachment_op = ChoiceArrayField(models.CharField(max_length=200, choices=RETINAL_CHOICES, null=True, blank=True),
+                                             verbose_name = '망막박리 수술',
+                                             help_text='망막 박리 수술을 받은 적이 있나요?',
+                                             null=True, blank=True)
     retinal_detachment_op_history = models.TextField('망막박리 수술 이력', null=True, blank=True, help_text='수술 이력을 자세히 적어주세요')
     mutation_list = models.FileField('IRD 관련 유젼자 변이', upload_to="ird/mutation/%Y/%m/%d",
                                      null=True, blank=True,
