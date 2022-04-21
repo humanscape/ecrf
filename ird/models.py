@@ -370,8 +370,7 @@ class IrdHistory(models.Model):
     hearing_defect_age = models.PositiveIntegerField('쳥력 첫 증상 나이', null=True, blank=True,
                                                      help_text='청력 이상 증상이 처음 나타났던 나이를 적어주세요')
 
-    best_age = models.CharField('가장 좋았을 때 시력 나이', max_length=200, null=True, blank=True,
-                                help_text='시력이 가장 좋았던 때는 언제인가요?')
+    best_age = models.TextField('가장 좋았을 때 시력 나이', null=True, blank=True, help_text='시력이 가장 좋았던 때는 언제인가요?')
     best_va_lt = models.TextField('가장 좋았을 때 시력 좌', null=True, blank=True, help_text='가장 좋았던 좌측 시력은 얼마였나요?')
     best_va_rt = models.TextField('가장 좋았을 때 시력 우', null=True, blank=True, help_text='가장 좋았던 우측 시력은 얼마였나요?')
     best_vfi_lt = models.TextField('가장 좋았을 때 시야 좌', null=True, blank=True, help_text='가장 좋았던 좌측 시야는 얼마였나요?')
