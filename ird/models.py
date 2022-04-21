@@ -153,10 +153,12 @@ class IrdHistory(models.Model):
     name = EncryptedCharField('이름', max_length=444, null=True, blank=True, help_text='성명')
     birthdate = EncryptedDateField('생년월일', null=True, blank=True, help_text='생년월일')
     age = models.PositiveIntegerField('나이', null=True, blank=True, help_text='나이')
-    sex = models.IntegerField('성별', choices=[(i, i) for i in range(3)], null=True, blank=True, help_text='성별')
+    sex = models.IntegerField('성별', choices=[(i, i) for i in range(1, 3)], null=True, blank=True, help_text='성별 (1:남자  2:여자)')
     address = EncryptedTextField('주소', null=True, blank=True, help_text='도/시')
     job = models.TextField('직업', null=True, blank=True, help_text='어떤 일을 하고 계신가요?')
     diagnosis = models.TextField('진단명', null=True, blank=True, help_text='진단명')
+
+    # (참고) 카이안과 작성부분
 
     # od
     sph_od = models.DecimalField('ARK_SPH', max_digits=10, decimal_places=2, null=True, blank=True, help_text='원/근시')
@@ -201,12 +203,12 @@ class IrdHistory(models.Model):
                                        help_text='망막전위도검사')
     maximal_c_od = models.DecimalField('ERG_Maximal_c', max_digits=10, decimal_places=2, null=True, blank=True,
                                        help_text='망막전위도검사')
-    cystoid_macular_edema_od = models.IntegerField('CME', choices=[(i, i) for i in range(3)], null=True, blank=True,
+    cystoid_macular_edema_od = models.IntegerField('CME', choices=[(i, i) for i in range(2)], null=True, blank=True,
                                                    help_text='황반 부음')
-    sector_rp_od = models.IntegerField('sector_RP', choices=[(i, i) for i in range(3)], null=True, blank=True,
+    sector_rp_od = models.IntegerField('sector_RP', choices=[(i, i) for i in range(2)], null=True, blank=True,
                                        help_text='부채형 RP')
     retinitis_punctata_albescens_od = models.IntegerField('retinitis_punctata_albescens',
-                                                          choices=[(i, i) for i in range(3)], null=True, blank=True,
+                                                          choices=[(i, i) for i in range(2)], null=True, blank=True,
                                                           help_text='백점상망막염')
 
     # os
@@ -259,36 +261,25 @@ class IrdHistory(models.Model):
     retinitis_punctata_albescens_os = models.IntegerField('retinitis_punctata_albescens',
                                                           choices=[(i, i) for i in range(3)], null=True, blank=True,
                                                           help_text='백점상망막염')
+    # (참고) 휴먼스케이프 작성부분
 
-
+    mutation_list = models.FileField('IRD 관련 유젼자 변이', upload_to="ird/mutation/%Y/%m/%d",
+                                     null=True, blank=True,
+                                     validators=[FileExtensionValidator(allowed_extensions=['csv'])])
     case_history = models.ImageField('실퇴본_병력청취', upload_to="ird/history/%Y/%m/%d", null=True, blank=True,
                                      help_text='실퇴본에서 조사한 병력청취 기록입니다.<br/>이미지 삽입 (스캔된 PDF파일 업로드)')
+
+    first_symptom_reason = models.TextField('진단 계기', null=True, blank=True, help_text='어떤 계기로 진단을 받게 되었나요?')
     first_symptom_age = models.PositiveIntegerField('첫 증상 나이', null=True, blank=True,
                                                     help_text='처음 눈에 증상이 나타난 나이는 언제인가요?')
-    first_symptom_year = models.PositiveIntegerField('첫 증상 연도', null=True, blank=True,
-                                                     help_text='처음 눈에 증상이 나타난 연도는 언제인가요?')
-    first_symptom_reason = models.TextField('진단 계기', null=True, blank=True, help_text='어떤 계기로 진단을 받게 되었나요?')
+    first_diagnosis_age = models.TextField('첫 진단 나이', null=True, blank=True,
+                                           help_text='진단을 처음 받았던 때는 언제였나요?')
     first_diagnosis_hospital = models.TextField('첫 진단 병원', null=True, blank=True, help_text='진단을 처음 받았던 병원은 어디인가요?')
-    best_age = models.CharField('가장 좋았을 때 시력 나이', max_length=200, null=True, blank=True,
-                                   help_text='시력이 가장 좋았던 때는 언제인가요?')
-    best_va_lt = models.TextField('가장 좋았을 때 시력 좌', null=True, blank=True, help_text='가장 좋았던 좌측 시력은 얼마였나요?')
-    best_va_rt = models.TextField('가장 좋았을 때 시력 우', null=True, blank=True, help_text='가장 좋았던 우측 시력은 얼마였나요?')
-    best_vfi_lt = models.TextField('가장 좋았을 때 시야 좌', null=True, blank=True, help_text='가장 좋았던 좌측 시야는 얼마였나요?')
-    best_vfi_rt = models.TextField('가장 좋았을 때 시야 우', null=True, blank=True, help_text='가장 좋았던 우측 시야는 얼마였나요?')
-    first_diagnosis_age = models.CharField('첫 진단 나이', max_length=200, null=True, blank=True,
-                                              help_text='진단을 처음 받았던 때는 언제였나요?')
-    first_va_lt = models.TextField('최초 진단시 시력 좌', null=True, blank=True, help_text='진단을 처음 받았던 때의 좌측 시력은 얼마였나요?')
-    first_va_rt = models.TextField('최초 진단시 시력 우', null=True, blank=True, help_text='진단을 처음 받았던 때의 우측 시력은 얼마였나요?')
-    first_vfi_lt = models.TextField('최초 진단시 시야 좌', null=True, blank=True, help_text='진단을 처음 받았던 때의 좌측 시야는 얼마였나요?')
-    first_vfi_rt = models.TextField('최초 진단시 시야 우', null=True, blank=True, help_text='진단을 처음 받았던 때의 우측 시야는 얼마였나요?')
-    current_va_lt = models.TextField('현재 시력 좌', null=True, blank=True, help_text='현재 좌측 시력은 얼마인가요?')
-    current_va_rt = models.TextField('현재 시력 우', null=True, blank=True, help_text='현재 우측 시력은 얼마인가요?')
-    current_vfi_lt = models.TextField('현재 시야 좌', null=True, blank=True, help_text='현재 좌측 시야는 얼마인가요?')
-    current_vfi_rt = models.TextField('현재 시야 우', null=True, blank=True, help_text='현재 우측 시야는 얼마인가요?')
     current_hospital = models.TextField('현재 다니는 병원', null=True, blank=True, help_text='현재 다니는 병원은 어디인가요?')
 
     pedigree = models.ImageField('가계도', upload_to="ird/pedigree/%Y/%m/%d", null=True, blank=True,
                                  help_text='가족 구성원이 어떻게 되시나요?')
+
 
     familyhistory_diagnosis1 = ChoiceArrayField(models.CharField(max_length=200, choices=FAMILY_HISTORY_CHOICES,
                                                                      null=True, blank=True),
@@ -304,11 +295,14 @@ class IrdHistory(models.Model):
                                                 null=True, blank=True)
     familyhistory_diagnosis_name = models.TextField('가족 다른 종류 진단명', null=True, blank=True,
                                                     help_text='가족 중 다른 종류의 유전성 망막질환을 진단받은 사람이 있다면, 그 질환은 무엇인가요?')
-    underlying_disease1 = ChoiceArrayField(models.CharField(max_length=200, choices=UNDERLYING_DISEASE_CHOICES, null=True, blank=True),
-                                           verbose_name='기저질환',
-                                           help_text='과거 앓았거나 현재 앓고 있는 질환이 있나요? 모두 선택해주세요',
-                                           null=True, blank=True)
+
+    underlying_disease1 = ChoiceArrayField(
+        models.CharField(max_length=200, choices=UNDERLYING_DISEASE_CHOICES, null=True, blank=True),
+        verbose_name='기저질환',
+        help_text='과거 앓았거나 현재 앓고 있는 질환이 있나요? 모두 선택해주세요',
+        null=True, blank=True)
     underlying_disease2 = models.TextField('기타 기저질환', null=True, blank=True, help_text='그외 기타 질환 적어주세요')
+
     drug = models.IntegerField('12주 이내 복용한 약물', choices=EXISTENCE_DN_CHOICES2, null=True, blank=True,
                                help_text='최근 12주 이내에 복용한 약물이 있나요? ')
     drug_name = models.TextField('약물명', null=True, blank=True, help_text='약물명을 적어주세요')
@@ -326,11 +320,37 @@ class IrdHistory(models.Model):
                                                         help_text='시야 좁은 증상이 처음 나타났던 나이를 적어주세요 ')
     central_vision = models.IntegerField('중심시력', choices=EXISTENCE_CHOICES2, null=True, blank=True,
                                          help_text='중심 시력에 이상이 있다고 느낀 적이 있나요?')
-    central_vision_age = models.PositiveIntegerField('중심시력 나이', null=True, blank=True, help_text='중심 시력 이상 증상이 처음 나타났던 나이를 적어주세요 ')
+    central_vision_age = models.PositiveIntegerField('중심시력 나이', null=True, blank=True,
+                                                     help_text='중심 시력 이상 증상이 처음 나타났던 나이를 적어주세요 ')
     read = models.IntegerField('읽기', choices=AVAILABLE_CHOICES, null=True, blank=True,
                                help_text='책이나 컴퓨터 화면 등 가까이 있는 물체를 볼 수 있나요?')
     object_recognition = models.IntegerField('물체 확인', choices=AVAILABLE_CHOICES, null=True, blank=True,
                                              help_text='멀리 있는 물체를 볼 수 있나요?')
+
+    cataract = models.IntegerField('백내장', choices=EXISTENCE_CHOICES2, null=True, blank=True,
+                                   help_text='백내장을 경험한 적이 있나요? ')
+    cataract_op = ChoiceArrayField(models.CharField(max_length=200, choices=EXISTENCE_CHOICES2, null=True, blank=True),
+                                   verbose_name='백내장 수술',
+                                   help_text='백내장 수술을 받은 적이 있나요?',
+                                   null=True, blank=True)
+
+    cataract_op_history = models.TextField('백내장 수술 이력', null=True, blank=True, help_text='수술 이력을 자세히 적어주세요')
+    glaucoma = models.IntegerField('녹내장', choices=EXISTENCE_CHOICES2, null=True, blank=True,
+                                   help_text='녹내장을 경험한 적이 있나요?')
+    glaucoma_op = ChoiceArrayField(models.CharField(max_length=200, choices=RETINAL_CHOICES, null=True, blank=True),
+                                   verbose_name='녹내장 수술',
+                                   help_text='녹내장 수술을 받은 적이 있나요?',
+                                   null=True, blank=True)
+    glaucoma_op_history = models.TextField('녹내장 수술 이력', null=True, blank=True, help_text='수술 이력을 자세히 적어주세요')
+    retinal_detachment = models.IntegerField('망막박리', choices=EXISTENCE_CHOICES2, null=True, blank=True,
+                                             help_text='망막 박리를 경험한 적이 있나요?')
+    retinal_detachment_op = ChoiceArrayField(
+        models.CharField(max_length=200, choices=RETINAL_CHOICES, null=True, blank=True),
+        verbose_name='망막박리 수술',
+        help_text='망막 박리 수술을 받은 적이 있나요?',
+        null=True, blank=True)
+    retinal_detachment_op_history = models.TextField('망막박리 수술 이력', null=True, blank=True, help_text='수술 이력을 자세히 적어주세요')
+
     dark_adaptation = models.IntegerField('암순응', choices=EXISTENCE_CHOICES2, null=True, blank=True,
                                           help_text='암순응에 이상이 있다고 느낀 적이 있나요?')
     dark_adaptation_age = models.PositiveIntegerField('암순응 나이', null=True, blank=True,
@@ -342,38 +362,30 @@ class IrdHistory(models.Model):
                                       help_text='색각에 이상이 있다고 느낀 적이 있나요?')
     color_sense_age = models.PositiveIntegerField('색각 나이', null=True, blank=True,
                                                   help_text='색각 이상 증상이 처음 나타났던 나이를 적어주세요 ')
-    photopsia = models.IntegerField('눈부심', choices=EXISTENCE_CHOICES2, null=True, blank=True,
+    dazzling = models.IntegerField('눈부심', choices=EXISTENCE_CHOICES2, null=True, blank=True,
                                     help_text='눈부심을 경험한 적이 있나요')
-    photopsia_age = models.PositiveIntegerField('눈부심 나이', null=True, blank=True, help_text='눈부심 증상이 처음 나타났던 나이를 적어주세요 ')
+    dazzling_age = models.PositiveIntegerField('눈부심 나이', null=True, blank=True, help_text='눈부심 증상이 처음 나타났던 나이를 적어주세요 ')
     hearing_defect = models.IntegerField('청력', choices=EXISTENCE_CHOICES2, null=True, blank=True,
                                          help_text='청력에 이상이 있나요?')
     hearing_defect_age = models.PositiveIntegerField('쳥력 첫 증상 나이', null=True, blank=True,
                                                      help_text='청력 이상 증상이 처음 나타났던 나이를 적어주세요')
-    cataract = models.IntegerField('백내장', choices=EXISTENCE_CHOICES2, null=True, blank=True,
-                                   help_text='백내장을 경험한 적이 있나요? ')
-    cataract_op = ChoiceArrayField(models.CharField(max_length=200, choices=EXISTENCE_CHOICES2, null=True, blank=True),
-                                   verbose_name = '백내장 수술',
-                                   help_text = '백내장 수술을 받은 적이 있나요?',
-                                   null=True, blank=True)
 
-    cataract_op_history = models.TextField('백내장 수술 이력', null=True, blank=True, help_text='수술 이력을 자세히 적어주세요')
-    glaucoma = models.IntegerField('녹내장', choices=EXISTENCE_CHOICES2, null=True, blank=True,
-                                   help_text='녹내장을 경험한 적이 있나요?')
-    glaucoma_op = ChoiceArrayField(models.CharField(max_length=200, choices=RETINAL_CHOICES, null=True, blank=True),
-                                   verbose_name = '녹내장 수술',
-                                   help_text = '녹내장 수술을 받은 적이 있나요?',
-                                   null=True, blank=True)
-    glaucoma_op_history = models.TextField('녹내장 수술 이력', null=True, blank=True, help_text='수술 이력을 자세히 적어주세요')
-    retinal_detachment = models.IntegerField('망막박리', choices=EXISTENCE_CHOICES2, null=True, blank=True,
-                                             help_text='망막 박리를 경험한 적이 있나요?')
-    retinal_detachment_op = ChoiceArrayField(models.CharField(max_length=200, choices=RETINAL_CHOICES, null=True, blank=True),
-                                             verbose_name = '망막박리 수술',
-                                             help_text='망막 박리 수술을 받은 적이 있나요?',
-                                             null=True, blank=True)
-    retinal_detachment_op_history = models.TextField('망막박리 수술 이력', null=True, blank=True, help_text='수술 이력을 자세히 적어주세요')
-    mutation_list = models.FileField('IRD 관련 유젼자 변이', upload_to="ird/mutation/%Y/%m/%d",
-                                     null=True, blank=True,
-                                     validators=[FileExtensionValidator(allowed_extensions=['csv'])])
+    best_age = models.CharField('가장 좋았을 때 시력 나이', max_length=200, null=True, blank=True,
+                                help_text='시력이 가장 좋았던 때는 언제인가요?')
+    best_va_lt = models.TextField('가장 좋았을 때 시력 좌', null=True, blank=True, help_text='가장 좋았던 좌측 시력은 얼마였나요?')
+    best_va_rt = models.TextField('가장 좋았을 때 시력 우', null=True, blank=True, help_text='가장 좋았던 우측 시력은 얼마였나요?')
+    best_vfi_lt = models.TextField('가장 좋았을 때 시야 좌', null=True, blank=True, help_text='가장 좋았던 좌측 시야는 얼마였나요?')
+    best_vfi_rt = models.TextField('가장 좋았을 때 시야 우', null=True, blank=True, help_text='가장 좋았던 우측 시야는 얼마였나요?')
+    first_va_lt = models.TextField('최초 진단시 시력 좌', null=True, blank=True, help_text='진단을 처음 받았던 때의 좌측 시력은 얼마였나요?')
+    first_va_rt = models.TextField('최초 진단시 시력 우', null=True, blank=True, help_text='진단을 처음 받았던 때의 우측 시력은 얼마였나요?')
+    first_vfi_lt = models.TextField('최초 진단시 시야 좌', null=True, blank=True, help_text='진단을 처음 받았던 때의 좌측 시야는 얼마였나요?')
+    first_vfi_rt = models.TextField('최초 진단시 시야 우', null=True, blank=True, help_text='진단을 처음 받았던 때의 우측 시야는 얼마였나요?')
+    current_va_lt = models.TextField('현재 시력 좌', null=True, blank=True, help_text='현재 좌측 시력은 얼마인가요?')
+    current_va_rt = models.TextField('현재 시력 우', null=True, blank=True, help_text='현재 우측 시력은 얼마인가요?')
+    current_vfi_lt = models.TextField('현재 시야 좌', null=True, blank=True, help_text='현재 좌측 시야는 얼마인가요?')
+    current_vfi_rt = models.TextField('현재 시야 우', null=True, blank=True, help_text='현재 우측 시야는 얼마인가요?')
+
+    comment = models.TextField('기타 세부 내용', null=True, blank=True)
 
     def save(self, *args, **kwargs):
         fields = self._meta.get_fields()
