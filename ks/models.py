@@ -80,12 +80,16 @@ class Ks(models.Model):
                                              help_text='지적장애 등급')
     disability_grade_2 = models.IntegerField('지적장애 정도', choices=DISABILITY_GRADE_2_CHOICES, null=True, blank=True,
                                              help_text='지적장애 정도')
-    # "N
-    # Short stature
-    # Failure to thrive
-    # Obesity"
-    growth = models.IntegerField('성장 이상 소견', choices=[(i, i) for i in range(3)], null=True, blank=True,
-                                 help_text='성장 이상 소견<br/>')
+
+    GROWTH_CHOICES = ((0, 'N'),
+                      (1, 'Short stature'),
+                      (2, 'Failure to thrive'),
+                      (3, 'Obesity'))
+    growth = ChoiceArrayField(models.CharField(max_length=200, choices=GROWTH_CHOICES,
+                                               null=True, blank=True),
+                              verbose_name='성장 이상 소견',
+                              help_text='성장 이상 소견',
+                              null=True, blank=True)
 
     growth_hormone_1 = models.IntegerField('성장호르몬결핍증 유무', choices=YES_NO_CHOICES, null=True, blank=True,
                                            help_text='성장호르몬결핍증 유무')
@@ -154,7 +158,7 @@ class Ks(models.Model):
                                            help_text='소화계 이상 소견')
     digestive_system_test = models.TextField('소화계 검사 소견', null=True, blank=True, help_text='소화계 검사 소견')
 
-    GENITOURINARY_SYSTEM_CHOICES = ((0, '"N'),
+    GENITOURINARY_SYSTEM_CHOICES = ((0, 'N'),
                                     (1, 'Hypoplasia of penis'),
                                     (2, 'Renal hypoplasia /aplasia'),
                                     (3, 'Duplicated collecting system'),
@@ -170,7 +174,7 @@ class Ks(models.Model):
                                             help_text='비뇨 생식기 이상 소견',
                                             null=True, blank=True)
     genitourinary_system_test = models.TextField('비뇨 생식기 이상 관련 검사 소견', null=True, blank=True, help_text='비뇨 생식기 검사 소견')
-    IMMUNOLOGY_CHOICES = ((0, '"N'),
+    IMMUNOLOGY_CHOICES = ((0, 'N'),
                           (1, 'Abnormality of immune system physiology'),
                           (2, 'Recurrent infections'))
     Immunology = ChoiceArrayField(models.CharField(max_length=200, choices=IMMUNOLOGY_CHOICES,
@@ -288,4 +292,3 @@ class Ks(models.Model):
 
 class Ks_pnuh(Ks):
     pass
-
