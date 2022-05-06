@@ -270,8 +270,7 @@ class IrdHistory(models.Model):
                                      help_text='실퇴본에서 조사한 병력청취 기록입니다.<br/>이미지 삽입 (스캔된 PDF파일 업로드)')
 
     first_symptom_reason = models.TextField('진단 계기', null=True, blank=True, help_text='어떤 계기로 진단을 받게 되었나요?')
-    first_symptom_age = models.PositiveIntegerField('첫 증상 나이', null=True, blank=True,
-                                                    help_text='처음 눈에 증상이 나타난 나이는 언제인가요?')
+    first_symptom_age = models.TextField('첫 증상 나이', null=True, blank=True, help_text='처음 눈에 증상이 나타난 나이는 언제인가요?')
     first_diagnosis_age = models.TextField('첫 진단 나이', null=True, blank=True,
                                            help_text='진단을 처음 받았던 때는 언제였나요?')
     first_diagnosis_hospital = models.TextField('첫 진단 병원', null=True, blank=True, help_text='진단을 처음 받았던 병원은 어디인가요?')
@@ -329,7 +328,7 @@ class IrdHistory(models.Model):
 
     cataract = models.IntegerField('백내장', choices=EXISTENCE_CHOICES2, null=True, blank=True,
                                    help_text='백내장을 경험한 적이 있나요? ')
-    cataract_op = ChoiceArrayField(models.CharField(max_length=200, choices=EXISTENCE_CHOICES2, null=True, blank=True),
+    cataract_op = ChoiceArrayField(models.CharField(max_length=200, choices=RETINAL_CHOICES, null=True, blank=True),
                                    verbose_name='백내장 수술',
                                    help_text='백내장 수술을 받은 적이 있나요?',
                                    null=True, blank=True)
