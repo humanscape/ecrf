@@ -3,8 +3,13 @@ from .forms import KsForm
 from .assets import RADIO_FIELDS
 from .models import *
 
-# Register your models here.
+
 @admin.register(Ks_pnuh)
+@admin.register(Ks_snuh)
+@admin.register(Ks_amc)
+@admin.register(Ks_smc)
+@admin.register(Ks_knuh)
+@admin.register(Ks_cbnuh)
 class KsAdmin(admin.ModelAdmin):
     form = KsForm
 

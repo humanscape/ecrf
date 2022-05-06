@@ -292,3 +292,18 @@ class Ks(models.Model):
 
 class Ks_pnuh(Ks):
     pass
+
+class Ks_snuh(Ks):
+    pass
+
+class Ks_amc(Ks):
+    pass
+
+class Ks_smc(Ks):
+    pass
+
+class Ks_knuh(Ks):
+    pass
+
+class Ks_cbnuh(Ks):
+    pass
