@@ -45,7 +45,7 @@ THIRD_PARTY_APPS = [
     'encrypted_fields'
 ]
 
-LOCAL_APPS = ['common', 'nf1', 'ird']
+LOCAL_APPS = ['common', 'nf1', 'ird', 'ks']
 INSTALLED_APPS = THIRD_PARTY_APPS + LOCAL_APPS
 
 MIDDLEWARE = [
