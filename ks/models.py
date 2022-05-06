@@ -265,9 +265,9 @@ class Ks(models.Model):
                                help_text='혈액암 혹은 고형암 진단',
                                null=True, blank=True)
     tumor_test = models.TextField('종양 관련 검사 소견', null=True, blank=True, help_text='종양 관련 검사 소견')
-    genetic_test = models.IntegerField('유전자 검사 시행 여부', choices=[(i, i) for i in range(3)], null=True, blank=True,
+    genetic_test = models.IntegerField('유전자 검사 시행 여부', choices=YES_NO_CHOICES, null=True, blank=True,
                                        help_text='유전자 검사 시행 여부')
-    mll2 = models.IntegerField('MLL2 유전자 변이 여부', choices=[(i, i) for i in range(3)], null=True, blank=True,
+    mll2 = models.IntegerField('MLL2 유전자 변이 여부', choices=YES_NO_CHOICES, null=True, blank=True,
                                help_text='MLL2 유전자 변이 여부')
     dna = models.CharField('유전자 변이 (DNA)', max_length=444, null=True, blank=True, help_text='유전자 변이 (DNA)')
     protein = models.CharField('유전자 변이 (Protein)', max_length=444, null=True, blank=True, help_text='유전자 변이 (Protein)')
