@@ -14,7 +14,7 @@ PREFIX={
 }
 
 SUFFIX={
-    'Ks': {
+    'ks': {
     }
 }
 
