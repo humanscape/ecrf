@@ -53,7 +53,7 @@ class ChoiceArrayField(ArrayField):
             raise exceptions.ValidationError(self.error_messages["blank"], code="blank")
 
 
-class ks(models.model):
+class Ks(models.Model):
     SEX_CHOICES = ((1, '남자'), (2, '여자'))
     EXISTENCE_DN_CHOICES = ((1, '있음'), (2, '없음'), (3, '모름'))
     FAMILY_HISTORY_CHOICES = ((1, '부'), (2, '모'), (3, '형제'), (4, '자녀'))
@@ -284,3 +284,8 @@ class ks(models.model):
 
     class Meta:
         abstract = True
+
+
+class Ks_pnuh(Ks):
+    pass
+
