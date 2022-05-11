@@ -291,19 +291,31 @@ class Ks(models.Model):
 
 
 class Ks_pnuh(Ks):
-    pass
+    class Meta:
+        verbose_name = "가부키증후군_양산부산대병원"
+        verbose_name_plural = "가부키증후군_양산부산대병원"
 
 class Ks_snuh(Ks):
-    pass
+    class Meta:
+        verbose_name = "가부키증후군_서울대학교병원"
+        verbose_name_plural = "가부키증후군_서울대학교병원"
 
 class Ks_amc(Ks):
-    pass
+    class Meta:
+        verbose_name = "가부키증후군_서울아산병원"
+        verbose_name_plural = "가부키증후군_서울아산병원"
 
 class Ks_smc(Ks):
-    pass
+    class Meta:
+        verbose_name = "가부키증후군_삼성서울병원"
+        verbose_name_plural = "가부키증후군_삼성서울병원"
 
 class Ks_knuh(Ks):
-    pass
+    class Meta:
+        verbose_name = "가부키증후군_칠곡경북대병원"
+        verbose_name_plural = "가부키증후군_칠곡경북대병원"
 
 class Ks_cbnuh(Ks):
-    pass
+    class Meta:
+        verbose_name = "가부키증후군_충북대병원"
+        verbose_name_plural = "가부키증후군_충북대병원"
