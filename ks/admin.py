@@ -6,10 +6,6 @@ from .models import *
 
 @admin.register(Ks_pnuh)
 @admin.register(Ks_snuh)
-@admin.register(Ks_amc)
-@admin.register(Ks_smc)
-@admin.register(Ks_knuh)
-@admin.register(Ks_cbnuh)
 class KsAdmin(admin.ModelAdmin):
     form = KsForm
 

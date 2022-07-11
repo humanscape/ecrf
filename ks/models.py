@@ -299,23 +299,3 @@ class Ks_snuh(Ks):
     class Meta:
         verbose_name = "가부키증후군_서울대학교병원"
         verbose_name_plural = "가부키증후군_서울대학교병원"
-
-class Ks_amc(Ks):
-    class Meta:
-        verbose_name = "가부키증후군_서울아산병원"
-        verbose_name_plural = "가부키증후군_서울아산병원"
-
-class Ks_smc(Ks):
-    class Meta:
-        verbose_name = "가부키증후군_삼성서울병원"
-        verbose_name_plural = "가부키증후군_삼성서울병원"
-
-class Ks_knuh(Ks):
-    class Meta:
-        verbose_name = "가부키증후군_칠곡경북대병원"
-        verbose_name_plural = "가부키증후군_칠곡경북대병원"
-
-class Ks_cbnuh(Ks):
-    class Meta:
-        verbose_name = "가부키증후군_충북대병원"
-        verbose_name_plural = "가부키증후군_충북대병원"
