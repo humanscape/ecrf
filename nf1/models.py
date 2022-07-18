@@ -12,6 +12,7 @@ from common.utils import calculate_age
 
 class Crf(models.Model):
     patient_number = models.PositiveIntegerField('Patient No.', null=True, blank=True, help_text='환자 번호')
+    icf_date = models.DateField('ICF date', null=True, blank=True, help_text='연구 동의서 취득일')
     birth_year_and_month = EncryptedDateField('Birth year and month', null=True, blank=True,
                                               help_text='생년월일<br/>입력시 오늘 날짜 기준으로 나이가 입력됩니다.')
     # AUTO
