@@ -24,7 +24,7 @@ DISPLAY_FIELDS={
 
 RADIO_FIELDS={
     'crf': ( 
-        'family_hx', 'familyhistory_diagnosis', 'sex', 'nf1_mutation', 'domain', 'mutation_type', 'inframe_deletion_or_insertion',
+        'family_hx', 'sex', 'nf1_mutation', 'domain', 'mutation_type', 'inframe_deletion_or_insertion',
         'nf1_haploinsufficiency_type', 'novel_mutation', 'cafe_au_lait_spots', 'axillary_freckling', 'cutaneous_neurofibromas',
         'wide_spread_diffuse_cutaneous_neurofibroma', 'relative_macrocephaly', 'lish_nodules', 'learning_difficulty', 
         'adhd', 'autism', 'lish_nodules', 'seizure', 'hypertension', 'cardiac_arrhythmia', 'cardiac_myopathy',

@@ -4,7 +4,9 @@ from datetime import datetime, date
 from django.utils.safestring import mark_safe
 from django.core.validators import FileExtensionValidator
 from django.forms import SelectMultiple
+from django import forms
 from django.contrib.postgres.fields import ArrayField
+from django.core import exceptions
 
 from encrypted_fields.fields import *
 
@@ -88,6 +90,15 @@ class Crf(models.Model):
     familyhistory_diagnosis = models.IntegerField('familyhistory_diagnosis', choices=[(i, i) for i in range(4)], null=True, blank=True,
                                     help_text='0: 부<br/>1: 모<br/>2: 형제<br/>3: 자녀')
 
+    FAMILYHISTORY_DIAGNOSIS_CHOICES = ((0, '부'),
+                                       (1, '모'),
+                                       (2, '형제'),
+                                       (3, '자녀'))
+    familyhistory_diagnosis_multiple = ChoiceArrayField(models.CharField(max_length=200, choices=FAMILYHISTORY_DIAGNOSIS_CHOICES,
+                                            null=True, blank=True),
+                           verbose_name='familyhistory_diagnosis',
+                           help_text='0: 부<br/>1: 모<br/>2: 형제<br/>3: 자녀',
+                           null=True, blank=True)
 
     date_at_evaluation = models.DateField('Date at evaluation ', null=True, blank=True,
                                           help_text='유전자 검사 날짜<br/>입력시 유전자 검사시의 나이가 입력됩니다.')
