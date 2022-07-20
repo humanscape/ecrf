@@ -20,6 +20,7 @@ PREFIX={
 SUFFIX={
     'ks': {
         'height': 'cm',
+        'birth_weight': 'kg',
         'weight': 'kg',
         'growth_hormone_3': 'ng/ml',
         'tsh': 'ulU/ml',

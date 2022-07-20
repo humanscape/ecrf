@@ -69,6 +69,12 @@ class Ks(models.Model):
     diagnosis_age = models.DateField('진단 받은 날짜', null=True, blank=True, help_text='가부키 증후군 진단 받은 날짜')
     familyhistory_1 = models.IntegerField('가족 병력', choices=EXISTENCE_DN_CHOICES, null=True, blank=True,
                                           help_text='가족 병력<br/>')
+
+    familyhistory_1_multiple = ChoiceArrayField(models.CharField(max_length=200, choices=EXISTENCE_DN_CHOICES,
+                                               null=True, blank=True),
+                              verbose_name='가족 병력',
+                              help_text='가족 병력<br/>',
+                              null=True, blank=True)
     familyhistory_2 = models.IntegerField('가족 병력 관계', choices=FAMILY_HISTORY_CHOICES, null=True, blank=True,
                                           help_text='가족 병력 관계<br/>')
     birth_weight = models.DecimalField('출생시 체중', max_digits=10, decimal_places=2, null=True, blank=True,
@@ -258,7 +264,7 @@ class Ks(models.Model):
     hba1c_test = models.DecimalField('HbA1C 수치', max_digits=10, decimal_places=2, null=True, blank=True,
                                      help_text='가장 최근 HbA1C 수치')
     tumor_1 = models.IntegerField('종양 유무', choices=YES_NO_CHOICES, null=True, blank=True, help_text='종양 유무')
-    TUMOR_2_CHOICES = ((1, '혈액암'), (2, '고형암'))
+    TUMOR_2_CHOICES = ((0, '미해당'), (1, '혈액암'), (2, '고형암'))
     tumor_2 = ChoiceArrayField(models.CharField(max_length=200, choices=TUMOR_2_CHOICES,
                                                 null=True, blank=True),
                                verbose_name='혈액암 혹은 고형암 진단',
