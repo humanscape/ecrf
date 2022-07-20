@@ -3,11 +3,68 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 from datetime import datetime, date
 from django.utils.safestring import mark_safe
 from django.core.validators import FileExtensionValidator
+from django.forms import SelectMultiple
+from django.contrib.postgres.fields import ArrayField
 
 from encrypted_fields.fields import *
 
 from .assets import CALCULATE_AGE_FIELDS
 from common.utils import calculate_age
+
+# TODO: 코드 중복이므로 합쳐야함..... deprecated 예정이라 이렇게 둠
+class ArraySelectMultiple(SelectMultiple):
+
+    def value_omitted_from_data(self, data, files, name):
+        return False
+
+
+class ChoiceArrayField(ArrayField):
+    """
+    A field that allows us to store an array of choices.
+
+    Uses Django 1.9's postgres ArrayField
+    and a MultipleChoiceField for its formfield.
+
+    Usage:
+
+        choices = ChoiceArrayField(models.CharField(max_length=...,
+                                                    choices=(...,)),
+                                   default=[...])
+    """
+
+    def formfield(self, **kwargs):
+        defaults = {
+            'form_class': forms.TypedMultipleChoiceField,
+            'choices': self.base_field.choices,
+            'widget': forms.CheckboxSelectMultiple,
+
+        }
+        defaults.update(kwargs)
+
+        # Skip our parent's formfield implementation completely as we don't
+        # care for it.
+        # pylint:disable=bad-super-call
+        return super(ArrayField, self).formfield(**defaults)
+
+    def validate(self, value, model_instance):
+        if not self.editable:
+            # Skip validation for non-editable fields.
+            return
+
+        if self.choices is not None and value not in self.empty_values:
+            if set(value).issubset({option_key for option_key, _ in self.choices}):
+                return
+            raise exceptions.ValidationError(
+                self.error_messages["invalid_choice"],
+                code="invalid_choice",
+                params={"value": value},
+            )
+
+        if value is None and not self.null:
+            raise exceptions.ValidationError(self.error_messages["null"], code="null")
+
+        if not self.blank and value in self.empty_values:
+            raise exceptions.ValidationError(self.error_messages["blank"], code="blank")
 
 
 class Crf(models.Model):
