@@ -90,14 +90,14 @@ class Crf(models.Model):
     familyhistory_diagnosis = models.IntegerField('familyhistory_diagnosis', choices=[(i, i) for i in range(4)], null=True, blank=True,
                                     help_text='0: 부<br/>1: 모<br/>2: 형제<br/>3: 자녀')
 
-    FAMILYHISTORY_DIAGNOSIS_CHOICES = ((0, '부'),
+    FAMILYHISTORY_DIAGNOSIS_CHOICES = ((-1, '-'),
+                                       (0, '부'),
                                        (1, '모'),
                                        (2, '형제'),
                                        (3, '자녀'))
     familyhistory_diagnosis_multiple = ChoiceArrayField(models.CharField(max_length=200, choices=FAMILYHISTORY_DIAGNOSIS_CHOICES,
                                             null=True, blank=True),
                            verbose_name='familyhistory_diagnosis',
-                           help_text='0: 부<br/>1: 모<br/>2: 형제<br/>3: 자녀',
                            null=True, blank=True)
 
     date_at_evaluation = models.DateField('Date at evaluation ', null=True, blank=True,
