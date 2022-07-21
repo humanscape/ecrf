@@ -87,9 +87,6 @@ class Crf(models.Model):
 
     family_hx = models.IntegerField('Family Hx.', choices=[(i, i) for i in range(3)], null=True, blank=True,
                                     help_text='가족 병력<br/>0: 없음<br/>1: 있음<br/>2: 모름')
-    familyhistory_diagnosis = models.IntegerField('familyhistory_diagnosis', choices=[(i, i) for i in range(4)], null=True, blank=True,
-                                    help_text='0: 부<br/>1: 모<br/>2: 형제<br/>3: 자녀')
-
     FAMILYHISTORY_DIAGNOSIS_CHOICES = ((-1, '-'),
                                        (0, '부'),
                                        (1, '모'),

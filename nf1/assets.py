@@ -1,7 +1,7 @@
 DISPLAY_FIELDS={
     'crf': (
         'patient_number', 'icf_date',
-        'birth_year_and_month', 'age', 'date_at_dx', 'age_at_dx', 'sex', 'family_hx', 'familyhistory_diagnosis',
+        'birth_year_and_month', 'age', 'date_at_dx', 'age_at_dx', 'sex', 'family_hx',
         'familyhistory_diagnosis_multiple',
         'date_at_evaluation', 'age_at_evaluation', 'nf1_mutation', 'dna', 'protein', 'domain', 'mutation_type',
         'inframe_deletion_or_insertion', 'nf1_haploinsufficiency_type', 'novel_mutation',
