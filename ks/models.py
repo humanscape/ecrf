@@ -71,8 +71,6 @@ class Ks(models.Model):
                                           help_text='가족 병력<br/>')
 
     FAMILY_HISTORY_CHOICES = ((0, '-'), (1, '부'), (2, '모'), (3, '형제'), (4, '자녀'))
-    familyhistory_2 = models.IntegerField('가족 병력 관계', choices=FAMILY_HISTORY_CHOICES, null=True, blank=True,
-                                          help_text='가족 병력 관계<br/>')
     familyhistory_2_multiple = ChoiceArrayField(models.CharField(max_length=200, choices=FAMILY_HISTORY_CHOICES,
                                                                  null=True, blank=True),
                                                 verbose_name='가족 병력 관계',
