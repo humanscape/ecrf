@@ -56,7 +56,7 @@ class ChoiceArrayField(ArrayField):
 class Ks(models.Model):
     SEX_CHOICES = ((1, '남자'), (2, '여자'))
     EXISTENCE_DN_CHOICES = ((1, '있음'), (2, '없음'), (3, '모름'))
-    FAMILY_HISTORY_CHOICES = ((1, '부'), (2, '모'), (3, '형제'), (4, '자녀'))
+
     YES_NO_CHOICES = ((1, '네'), (2, '아니오'))
 
     DISABILITY_GRADE_1_CHOICES = ((1, '1급'), (2, '2급'), (3, '3급'), (4, '4급'), (5, '5급'), (6, '6급'), (7, '등급 외(장애 정도)'))
@@ -70,13 +70,14 @@ class Ks(models.Model):
     familyhistory_1 = models.IntegerField('가족 병력', choices=EXISTENCE_DN_CHOICES, null=True, blank=True,
                                           help_text='가족 병력<br/>')
 
-    familyhistory_1_multiple = ChoiceArrayField(models.CharField(max_length=200, choices=EXISTENCE_DN_CHOICES,
-                                               null=True, blank=True),
-                              verbose_name='가족 병력',
-                              help_text='가족 병력<br/>',
-                              null=True, blank=True)
+    FAMILY_HISTORY_CHOICES = ((0, '-'), (1, '부'), (2, '모'), (3, '형제'), (4, '자녀'))
     familyhistory_2 = models.IntegerField('가족 병력 관계', choices=FAMILY_HISTORY_CHOICES, null=True, blank=True,
                                           help_text='가족 병력 관계<br/>')
+    familyhistory_2_multiple = ChoiceArrayField(models.CharField(max_length=200, choices=FAMILY_HISTORY_CHOICES,
+                                                                 null=True, blank=True),
+                                                verbose_name='가족 병력 관계',
+                                                help_text='가족 병력 관계<br/>',
+                                                null=True, blank=True)
     birth_weight = models.DecimalField('출생시 체중', max_digits=10, decimal_places=2, null=True, blank=True,
                                        help_text='출생시 체중')
     gestational_age = models.TextField('출생시 재태주수', null=True, blank=True, help_text='출생시 재태주수')
