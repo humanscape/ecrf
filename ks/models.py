@@ -66,6 +66,7 @@ class Ks(models.Model):
     icf_date = models.DateField('연구 동의 날짜', null=True, blank=True, help_text='연구 동의 날짜')
     sex = models.IntegerField('성별', choices=SEX_CHOICES, null=True, blank=True, help_text='성별')
     birthdate = models.DateField('생년월일', null=True, blank=True, help_text='생년월일')
+    initials = models.CharField('이니셜', max_length=444, null=True, blank=True, help_text='이니셜')
     diagnosis_age = models.DateField('진단 받은 날짜', null=True, blank=True, help_text='가부키 증후군 진단 받은 날짜')
     familyhistory_1 = models.IntegerField('가족 병력', choices=EXISTENCE_DN_CHOICES, null=True, blank=True,
                                           help_text='가족 병력<br/>')
