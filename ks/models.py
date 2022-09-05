@@ -301,6 +301,23 @@ class Ks_pnuh(Ks):
         verbose_name = "가부키증후군_양산부산대병원"
         verbose_name_plural = "가부키증후군_양산부산대병원"
 
+class Ks_pnuh_history(models.Model):
+    YES_NO_CHOICES = ((1, '네'), (2, '아니오'))
+
+    ks_pnuh = models.ForeignKey('Ks_pnuh', related_name='ks_pnuh_history', on_delete=models.CASCADE)
+    history_1 = models.IntegerField('과거 병력 여부', choices=YES_NO_CHOICES, null=True, blank=True,
+                                    help_text='과거 병력 여부')
+    history_2 = models.TextField('과거 병력 질환명', null=True, blank=True, help_text='과거 병력 질환명')
+
+
+class Ks_pnuh_con_med(models.Model):
+    YES_NO_CHOICES = ((1, '네'), (2, '아니오'))
+
+    ks_pnuh = models.ForeignKey('Ks_pnuh', related_name='ks_pnuh_con_med', on_delete=models.CASCADE)
+    con_med_1 = models.IntegerField('병용약물 유무', choices=YES_NO_CHOICES, null=True, blank=True,
+                                    help_text='병용약물 유무')
+    con_med_2 = models.TextField('약물명', null=True, blank=True, help_text='약물명')
+
 
 class Ks_snuh(models.Model):
     SEX_CHOICES = ((1, '남자'), (2, '여자'))
