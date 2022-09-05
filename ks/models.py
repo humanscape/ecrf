@@ -300,7 +300,19 @@ class Ks_pnuh(Ks):
         verbose_name = "가부키증후군_양산부산대병원"
         verbose_name_plural = "가부키증후군_양산부산대병원"
 
-class Ks_snuh(Ks):
+
+class Ks_snuh(models.Model):
+    SEX_CHOICES = ((1, '남자'), (2, '여자'))
+
+    patient_number = models.PositiveIntegerField('대상자 번호', null=True, blank=True, help_text='대상자 번호')
+    icf_date = models.DateField('연구 동의 날짜', null=True, blank=True, help_text='연구 동의 날짜')
+    sex = models.IntegerField('성별', choices=SEX_CHOICES, null=True, blank=True, help_text='성별')
+    birthdate = models.DateField('생년월일', null=True, blank=True, help_text='생년월일')
+    birth_weight = models.DecimalField('출생시 체중', max_digits=10, decimal_places=2, null=True, blank=True,
+                                       help_text='출생시 체중')
+    gestational_age = models.TextField('출생시 재태주수', null=True, blank=True, help_text='출생시 재태주수')
+    height = models.DecimalField('현재 키', max_digits=10, decimal_places=2, null=True, blank=True, help_text='현재 키')
+    weight = models.DecimalField('현재 체중', max_digits=10, decimal_places=2, null=True, blank=True, help_text='현재 체중')
     class Meta:
         verbose_name = "가부키증후군_서울대학교병원"
         verbose_name_plural = "가부키증후군_서울대학교병원"
