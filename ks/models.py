@@ -309,6 +309,10 @@ class Ks_pnuh_history(models.Model):
                                     help_text='과거 병력 여부')
     history_2 = models.TextField('과거 병력 질환명', null=True, blank=True, help_text='과거 병력 질환명')
 
+    class Meta:
+        verbose_name = "과거 병력"
+        verbose_name_plural = "과거 병력"
+
 
 class Ks_pnuh_con_med(models.Model):
     YES_NO_CHOICES = ((1, '네'), (2, '아니오'))
@@ -317,6 +321,10 @@ class Ks_pnuh_con_med(models.Model):
     con_med_1 = models.IntegerField('병용약물 유무', choices=YES_NO_CHOICES, null=True, blank=True,
                                     help_text='병용약물 유무')
     con_med_2 = models.TextField('약물명', null=True, blank=True, help_text='약물명')
+
+    class Meta:
+        verbose_name = "병용약물"
+        verbose_name_plural = "병용약물"
 
 
 class Ks_snuh(models.Model):
